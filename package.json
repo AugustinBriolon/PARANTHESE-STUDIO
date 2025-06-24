@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "lint": "next lint",
     "format": "eslint --fix \"**/*.{ts,tsx,js,jsx}\"",
     "check": "eslint \"**/*.{ts,tsx,js,jsx}\"",
     "prepare": "husky"

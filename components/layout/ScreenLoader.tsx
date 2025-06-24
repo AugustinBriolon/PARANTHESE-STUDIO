@@ -1,19 +1,19 @@
-import { useIsScreenLoader } from "@/hooks/useIsScreenLoader";
-import { useScrollLock } from "@/hooks/useToggleScroll";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
-import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
-import SplitText from "gsap/SplitText";
-import { useRef } from "react";
+import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
+import { useScrollLock } from '@/hooks/useToggleScroll';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin';
+import SplitText from 'gsap/SplitText';
+import { useRef } from 'react';
 
 gsap.registerPlugin(SplitText, DrawSVGPlugin, MorphSVGPlugin);
 
 const initialPathDLeft =
-  "M117 377.8C83.4 361.533 55.5333 337 33.4 304.2C11.5333 271.4 0.600001 233 0.600001 189C0.600001 145 11.5333 106.6 33.4 73.8C55.5333 41 83.4 16.4667 117 0.199994L135.8 33C107.533 47.9333 84.7333 68.8667 67.4 95.8C50.0667 122.467 41.4 153.533 41.4 189C41.4 224.467 50.0667 255.667 67.4 282.6C84.7333 309.267 107.533 330.067 135.8 345L117 377.8Z";
+  'M117 377.8C83.4 361.533 55.5333 337 33.4 304.2C11.5333 271.4 0.600001 233 0.600001 189C0.600001 145 11.5333 106.6 33.4 73.8C55.5333 41 83.4 16.4667 117 0.199994L135.8 33C107.533 47.9333 84.7333 68.8667 67.4 95.8C50.0667 122.467 41.4 153.533 41.4 189C41.4 224.467 50.0667 255.667 67.4 282.6C84.7333 309.267 107.533 330.067 135.8 345L117 377.8Z';
 const initialPathDRight =
-  "M0.800049 344.999C29.0667 330.066 51.8667 309.266 69.2001 282.599C86.5334 255.666 95.2001 224.466 95.2001 188.999C95.2001 153.533 86.5334 122.466 69.2001 95.7992C51.8667 68.8659 29.0667 47.9326 0.800049 32.9992L19.6 0.199219C53.2001 16.4659 80.9334 40.9992 102.8 73.7992C124.933 106.599 136 144.999 136 188.999C136 232.999 124.933 271.399 102.8 304.199C80.9334 336.999 53.2001 361.533 19.6 377.799L0.800049 344.999Z";
-const transformedPath = "M0 378V0H40V378H0Z";
+  'M0.800049 344.999C29.0667 330.066 51.8667 309.266 69.2001 282.599C86.5334 255.666 95.2001 224.466 95.2001 188.999C95.2001 153.533 86.5334 122.466 69.2001 95.7992C51.8667 68.8659 29.0667 47.9326 0.800049 32.9992L19.6 0.199219C53.2001 16.4659 80.9334 40.9992 102.8 73.7992C124.933 106.599 136 144.999 136 188.999C136 232.999 124.933 271.399 102.8 304.199C80.9334 336.999 53.2001 361.533 19.6 377.799L0.800049 344.999Z';
+const transformedPath = 'M0 378V0H40V378H0Z';
 
 const ScreenLoader = () => {
   const { lockScroll } = useScrollLock();
@@ -41,7 +41,7 @@ const ScreenLoader = () => {
 
       const tl = gsap.timeline();
       const split = SplitText.create(mainTextRef.current, {
-        type: "chars",
+        type: 'chars',
       });
 
       tl.from(
@@ -51,9 +51,9 @@ const ScreenLoader = () => {
           opacity: 0,
           y: 100,
           duration: 1,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "<",
+        '<',
       );
 
       tl.from(
@@ -63,9 +63,9 @@ const ScreenLoader = () => {
           opacity: 0,
           y: 100,
           duration: 1,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "-=0.8",
+        '-=0.8',
       );
 
       tl.from(
@@ -74,12 +74,12 @@ const ScreenLoader = () => {
           opacity: 0,
           y: 100,
           duration: 1,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "-=0.8",
+        '-=0.8',
       );
 
-      tl.addLabel("tranformParanthese");
+      tl.addLabel('tranformParanthese');
       const { chars } = split;
       const customOrder = [];
       let left = 0;
@@ -100,9 +100,9 @@ const ScreenLoader = () => {
           stagger: 0.02,
           opacity: 0,
           duration: 0.5,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "tranformParanthese",
+        'tranformParanthese',
       );
 
       tl.to(
@@ -110,50 +110,50 @@ const ScreenLoader = () => {
         {
           morphSVG: transformedPath,
           duration: 0.8,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "tranformParanthese",
+        'tranformParanthese',
       );
 
       tl.to(
         [parantheseSVGLeftRef.current, parantheseSVGRightRef.current],
         {
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           duration: 1,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "tranformParanthese",
+        'tranformParanthese',
       );
 
       tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
-        display: "block",
+        display: 'block',
         scaleY: 15,
         duration: 1,
-        ease: "power2.inOut",
+        ease: 'power2.inOut',
       });
 
       tl.to(
         [parantheseSVGLeftRef.current, parantheseSVGRightRef.current],
         {
-          display: "none",
-          ease: "power2.inOut",
+          display: 'none',
+          ease: 'power2.inOut',
         },
-        "<",
+        '<',
       );
 
-      tl.addLabel("elementDisepear");
+      tl.addLabel('elementDisepear');
 
       tl.to(
         [divSVGLeftRef.current, divSVGRightRef.current],
         {
           scaleX: 60,
           duration: 1,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "elementDisepear",
+        'elementDisepear',
       );
 
       tl.to(
@@ -161,9 +161,9 @@ const ScreenLoader = () => {
         {
           x: 1000,
           duration: 2,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "elementDisepear",
+        'elementDisepear',
       );
 
       tl.to(
@@ -171,9 +171,9 @@ const ScreenLoader = () => {
         {
           x: -1000,
           duration: 2,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "elementDisepear",
+        'elementDisepear',
       );
 
       tl.to(
@@ -181,9 +181,9 @@ const ScreenLoader = () => {
         {
           x: -1000,
           duration: 2,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "elementDisepear",
+        'elementDisepear',
       );
 
       tl.to(
@@ -191,9 +191,9 @@ const ScreenLoader = () => {
         {
           x: 1000,
           duration: 2,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
-        "elementDisepear",
+        'elementDisepear',
       );
     },
     { dependencies: [isScreenLoader] },
