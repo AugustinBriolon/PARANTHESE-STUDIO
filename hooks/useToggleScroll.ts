@@ -1,10 +1,7 @@
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { useCallback, useState } from "react";
 
-const setElementStyles = (
-  element: HTMLElement,
-  styles: Partial<CSSStyleDeclaration>,
-) => {
+const setElementStyles = (element: HTMLElement, styles: Partial<CSSStyleDeclaration>) => {
   Object.assign(element.style, styles);
 };
 

@@ -200,10 +200,7 @@ const ScreenLoader = () => {
   );
 
   return (
-    <div
-      ref={screenLoaderRef}
-      className="fixed inset-0 flex items-center justify-center"
-    >
+    <div ref={screenLoaderRef} className="fixed inset-0 flex items-center justify-center">
       <div className="relative flex items-center justify-center">
         <svg
           ref={parantheseSVGLeftRef}
