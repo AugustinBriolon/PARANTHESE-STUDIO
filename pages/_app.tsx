@@ -1,11 +1,12 @@
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
 import ScreenLoader from '@/components/layout/ScreenLoader';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useScrollLock } from '@/hooks/useToggleScroll';
-import { ReactElement, ReactNode, useEffect } from 'react';
-import { NextPage } from 'next';
 import Layout from '@/layout/default';
+import '@/styles/main.scss';
+import '@/styles/tailwind.css';
+import { NextPage } from 'next';
+import type { AppProps } from 'next/app';
+import { ReactElement, ReactNode, useEffect } from 'react';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
