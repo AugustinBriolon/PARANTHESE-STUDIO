@@ -1,5 +1,4 @@
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
-import { useScrollLock } from '@/hooks/useToggleScroll';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
@@ -16,7 +15,6 @@ const initialPathDRight =
 const transformedPath = 'M0 378V0H40V378H0Z';
 
 const ScreenLoader = () => {
-  const { lockScroll } = useScrollLock();
   const isScreenLoader = useIsScreenLoader();
   const screenLoaderRef = useRef(null);
   const mainTextRef = useRef(null);
@@ -28,10 +26,6 @@ const ScreenLoader = () => {
   const divRightRef = useRef(null);
   const divSVGLeftRef = useRef(null);
   const divSVGRightRef = useRef(null);
-
-  useGSAP(() => {
-    isScreenLoader && lockScroll(true);
-  }, [isScreenLoader]);
 
   useGSAP(
     () => {
