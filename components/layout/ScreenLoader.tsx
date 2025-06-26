@@ -140,6 +140,7 @@ const ScreenLoader = () => {
         [parantheseSVGLeftRef.current, parantheseSVGRightRef.current],
         {
           opacity: 0,
+          duration: 0,
           display: 'none',
           ease: 'power2.inOut',
         },
@@ -147,7 +148,7 @@ const ScreenLoader = () => {
       );
 
       tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
-        scaleX: 175,
+        scaleX: 100,
         duration: 1,
         ease: 'power2.inOut',
       });
@@ -158,8 +159,8 @@ const ScreenLoader = () => {
       });
 
       tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
-        x: (i) => [1920, -1920][i],
-        duration: 2,
+        x: (i) => [-1100, 1100][i],
+        duration: 1,
         ease: 'power2.inOut',
       });
 
@@ -190,7 +191,7 @@ const ScreenLoader = () => {
         <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
           <div
             ref={divSVGLeftRef}
-            className="svg-as-h1 hidden w-[3px] bg-black md:w-[10.58px]"
+            className="svg-as-h1 hidden w-[3px] origin-right bg-black md:w-[10.58px]"
           ></div>
         </div>
 
@@ -201,7 +202,7 @@ const ScreenLoader = () => {
         <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
           <div
             ref={divSVGRightRef}
-            className="svg-as-h1 hidden w-[3px] bg-black md:w-[10.58px]"
+            className="svg-as-h1 hidden w-[3px] origin-left bg-black md:w-[10.58px]"
           ></div>
         </div>
 

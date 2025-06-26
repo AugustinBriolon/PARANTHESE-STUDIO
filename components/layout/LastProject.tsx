@@ -16,6 +16,7 @@ export default function LastProject() {
   useGSAP(() => {
     const tl = gsap.timeline();
     tl.from(videoContainerRef.current, {
+      delay: isScreenLoader ? 7 : 0,
       scale: 0,
       duration: 1,
       ease: 'power2.inOut',
@@ -32,22 +33,44 @@ export default function LastProject() {
 
   const playVideoBigScreen = () => {
     const tl = gsap.timeline();
+    const mm = gsap.matchMedia();
     if (isPlaying) {
-      tl.to(videoContainerRef.current, {
-        scale: 1,
-        borderRadius: '16px',
-        duration: 1,
-        ease: 'power2.inOut',
-        onComplete: () => setIsPlaying(false),
+      setIsPlaying(false);
+      mm.add('(min-width: 950px)', () => {
+        tl.to(videoContainerRef.current, {
+          scale: 1,
+          borderRadius: '16px',
+          duration: 1,
+          ease: 'power2.inOut',
+        });
+      });
+      mm.add('(max-width: 950px)', () => {
+        tl.to(videoContainerRef.current, {
+          width: '176px',
+          borderRadius: '16px',
+          duration: 1,
+          ease: 'power2.inOut',
+        });
       });
       return;
     }
+
     setIsPlaying(true);
-    tl.to(videoContainerRef.current, {
-      scale: 5,
-      borderRadius: '3px',
-      duration: 1,
-      ease: 'power2.inOut',
+    mm.add('(min-width: 950px)', () => {
+      tl.to(videoContainerRef.current, {
+        scale: 5,
+        borderRadius: '3px',
+        duration: 1,
+        ease: 'power2.inOut',
+      });
+    });
+    mm.add('(max-width: 950px)', () => {
+      tl.to(videoContainerRef.current, {
+        width: 'calc(100% - 50px)',
+        borderRadius: '16px',
+        duration: 1,
+        ease: 'power2.inOut',
+      });
     });
   };
 
@@ -59,7 +82,7 @@ export default function LastProject() {
   return (
     <div className="flex flex-col items-end justify-end gap-2">
       <div
-        className={`fixed inset-0 z-40 bg-black/90 transition-opacity duration-300 ${showOverlay ? 'opacity-100' : 'opacity-0'}`}
+        className={`fixed z-40 bg-black/90 transition-all duration-300 ${showOverlay ? 'inset-0 opacity-100' : 'invisible inset-1 opacity-0'}`}
         onClick={playVideoBigScreen}
       ></div>
       <div className="overflow-hidden">
@@ -67,10 +90,10 @@ export default function LastProject() {
           LAST REALISATION
         </p>
       </div>
-      <div className="aspect-video h-auto w-44 max-w-full rounded-2xl bg-black/10"></div>
+      <div className="aspect-video h-auto w-44 max-w-full"></div>
       <div
         ref={videoContainerRef}
-        className="group absolute right-14 bottom-14 z-50 aspect-video h-auto w-44 max-w-full origin-bottom-right translate-0 cursor-pointer overflow-hidden rounded-2xl"
+        className="group absolute right-6 bottom-6 z-50 aspect-video h-auto w-44 max-w-full origin-bottom-right translate-0 cursor-pointer overflow-hidden rounded-2xl md:right-10 md:bottom-10 lg:right-14 lg:bottom-14"
         onClick={playVideoBigScreen}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

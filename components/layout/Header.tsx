@@ -10,7 +10,7 @@ export default function Header() {
 
   useGSAP(() => {
     gsap.timeline().from(logoRef.current, {
-      // delay: isScreenLoader ? 7 : 0,
+      delay: isScreenLoader ? 7 : 0,
       opacity: 0,
       y: -50,
       duration: 1.5,
