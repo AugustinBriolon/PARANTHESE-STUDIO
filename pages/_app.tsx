@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
-      <ScreenLoader />
+      {/* <ScreenLoader /> */}
       {getLayout(<Component {...pageProps} />)}
     </>
   );

@@ -80,6 +80,7 @@ const ScreenLoader = () => {
       );
 
       tl.addLabel('tranformParanthese');
+
       const { chars } = split;
       const customOrder = [];
       let left = 0;
@@ -130,7 +131,7 @@ const ScreenLoader = () => {
 
       tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
         display: 'block',
-        scaleY: 15,
+        scaleY: 30,
         duration: 1,
         ease: 'power2.inOut',
       });
@@ -138,69 +139,42 @@ const ScreenLoader = () => {
       tl.to(
         [parantheseSVGLeftRef.current, parantheseSVGRightRef.current],
         {
+          opacity: 0,
           display: 'none',
           ease: 'power2.inOut',
         },
         '<',
       );
 
-      tl.addLabel('elementDisepear');
+      tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
+        scaleX: 175,
+        duration: 1,
+        ease: 'power2.inOut',
+      });
 
-      tl.to(
-        [divSVGLeftRef.current, divSVGRightRef.current],
-        {
-          scaleX: 60,
-          duration: 1,
-          ease: 'power2.inOut',
-        },
-        'elementDisepear',
-      );
+      tl.set([divLeftRef.current, divRightRef.current], {
+        display: 'none',
+        opacity: 0,
+      });
 
-      tl.to(
-        divSVGLeftRef.current,
-        {
-          x: 1000,
-          duration: 2,
-          ease: 'power2.inOut',
-        },
-        'elementDisepear',
-      );
+      tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
+        x: (i) => [1920, -1920][i],
+        duration: 2,
+        ease: 'power2.inOut',
+      });
 
-      tl.to(
-        divSVGRightRef.current,
-        {
-          x: -1000,
-          duration: 2,
-          ease: 'power2.inOut',
-        },
-        'elementDisepear',
-      );
-
-      tl.to(
-        divLeftRef.current,
-        {
-          x: -1000,
-          duration: 2,
-          ease: 'power2.inOut',
-        },
-        'elementDisepear',
-      );
-
-      tl.to(
-        divRightRef.current,
-        {
-          x: 1000,
-          duration: 2,
-          ease: 'power2.inOut',
-        },
-        'elementDisepear',
-      );
+      tl.to(screenLoaderRef.current, {
+        display: 'none',
+      });
     },
     { dependencies: [isScreenLoader] },
   );
 
   return (
-    <div ref={screenLoaderRef} className="fixed inset-0 flex items-center justify-center">
+    <div
+      ref={screenLoaderRef}
+      className="fixed inset-0 z-[999999] flex items-center justify-center"
+    >
       <div className="relative flex items-center justify-center">
         <svg
           ref={parantheseSVGLeftRef}
@@ -216,7 +190,7 @@ const ScreenLoader = () => {
         <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
           <div
             ref={divSVGLeftRef}
-            className="hidden h-[6.2rem] w-[10.58px] origin-left bg-black"
+            className="svg-as-h1 hidden w-[3px] bg-black md:w-[10.58px]"
           ></div>
         </div>
 
@@ -227,7 +201,7 @@ const ScreenLoader = () => {
         <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
           <div
             ref={divSVGRightRef}
-            className="hidden h-[6.2rem] w-[10.58px] origin-right bg-black"
+            className="svg-as-h1 hidden w-[3px] bg-black md:w-[10.58px]"
           ></div>
         </div>
 
@@ -243,14 +217,8 @@ const ScreenLoader = () => {
           <path ref={paranthesePathRightRef} d={initialPathDRight} />
         </svg>
       </div>
-      <div
-        ref={divLeftRef}
-        className="absolute bottom-0 left-0 -z-1 h-full w-1/2 origin-right bg-white"
-      ></div>
-      <div
-        ref={divRightRef}
-        className="absolute right-0 bottom-0 -z-1 h-full w-1/2 origin-left bg-white"
-      ></div>
+      <div ref={divLeftRef} className="absolute bottom-0 left-0 -z-1 h-full w-1/2 bg-white" />
+      <div ref={divRightRef} className="absolute right-0 bottom-0 -z-1 h-full w-1/2 bg-white" />
     </div>
   );
 };
