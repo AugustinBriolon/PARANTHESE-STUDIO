@@ -2,7 +2,7 @@ import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
-import Button from './Button';
+import Button from '../ui/Button';
 
 export default function Contact() {
   const isScreenLoader = useIsScreenLoader();
@@ -43,7 +43,7 @@ export default function Contact() {
       <Button
         ref={contactButtonRef}
         className="origin-bottom-left"
-        href="mailto:contact@creative-studio.com"
+        href="mailto:hello@creative-studio.com"
       >
         CONTACT
       </Button>

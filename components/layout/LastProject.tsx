@@ -16,65 +16,45 @@ export default function LastProject() {
   const [isHovered, setIsHovered] = useState(false);
   const showOverlay = isPlaying || isHovered;
 
-  useGSAP(() => {
-    gsap.set(projectTitleRef.current, { y: 50 });
-    gsap.set(projectButtonRef.current, { y: 50 });
+  const tl = gsap.timeline();
+  const mm = gsap.matchMedia();
 
-    const tl = gsap.timeline();
-    tl.from(videoContainerRef.current, {
-      delay: isScreenLoader ? 7 : 0,
-      scale: 0,
-      duration: 1,
-      ease: 'power2.inOut',
-    });
-    const split = SplitText.create(textRef.current, { type: 'chars' });
-    tl.from(split.chars, {
-      opacity: 0,
-      y: 20,
-      stagger: 0.02,
-      duration: 0.4,
+  const openProjectInfoAnimation = () => {
+    tl.to(projectTitleRef.current, {
+      y: 0,
+      duration: 0.8,
       ease: 'power2.out',
     });
-  }, []);
-
-  const playVideoBigScreen = () => {
-    const tl = gsap.timeline();
-    const mm = gsap.matchMedia();
-
-    const openProjectInfoAnimation = () => {
-      tl.to(projectTitleRef.current, {
+    tl.to(
+      projectButtonRef.current,
+      {
         y: 0,
         duration: 0.8,
         ease: 'power2.out',
-      });
-      tl.to(
-        projectButtonRef.current,
-        {
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-        },
-        '<+0.2',
-      );
-    };
-    const closeProjectInfoAnimation = () => {
-      tl.to(projectTitleRef.current, {
+      },
+      '<+0.2',
+    );
+  };
+
+  const closeProjectInfoAnimation = () => {
+    tl.to(projectTitleRef.current, {
+      y: 50,
+      duration: 0.8,
+      ease: 'power2.out',
+    });
+    tl.to(
+      projectButtonRef.current,
+      {
         y: 50,
         duration: 0.8,
         ease: 'power2.out',
-      });
-      tl.to(
-        projectButtonRef.current,
-        {
-          y: 50,
-          duration: 0.8,
-          ease: 'power2.out',
-          onComplete: () => setIsPlaying(false),
-        },
-        '<+0.2',
-      );
-    };
+        onComplete: () => setIsPlaying(false),
+      },
+      '<+0.2',
+    );
+  };
 
+  const playVideoBigScreen = () => {
     if (isPlaying) {
       mm.add('(min-width: 950px)', () => {
         closeProjectInfoAnimation();
@@ -125,6 +105,27 @@ export default function LastProject() {
       openProjectInfoAnimation();
     });
   };
+
+  useGSAP(() => {
+    gsap.set(projectTitleRef.current, { y: 50 });
+    gsap.set(projectButtonRef.current, { y: 50 });
+
+    const tl = gsap.timeline();
+    tl.from(videoContainerRef.current, {
+      delay: isScreenLoader ? 7 : 0,
+      scale: 0,
+      duration: 1,
+      ease: 'power2.inOut',
+    });
+    const split = SplitText.create(textRef.current, { type: 'chars' });
+    tl.from(split.chars, {
+      opacity: 0,
+      y: 20,
+      stagger: 0.02,
+      duration: 0.4,
+      ease: 'power2.out',
+    });
+  }, []);
 
   useEffect(() => {
     if (isPlaying) setIsHovered(true);
