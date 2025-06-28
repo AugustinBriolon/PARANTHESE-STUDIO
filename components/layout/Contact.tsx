@@ -34,7 +34,7 @@ export default function Contact() {
     <div className="flex flex-col justify-end gap-2">
       <a
         ref={linkedinRef}
-        className="origin-bottom-left text-lg"
+        className="origin-bottom-left text-lg will-change-transform"
         href="https://www.linkedin.com/company/paranthese-studio/"
         target="_blank"
       >
@@ -42,7 +42,7 @@ export default function Contact() {
       </a>
       <Button
         ref={contactButtonRef}
-        className="origin-bottom-left"
+        className="origin-bottom-left will-change-transform"
         href="mailto:hello@creative-studio.com"
       >
         CONTACT

@@ -173,7 +173,7 @@ const ScreenLoader = () => {
       <div className="relative flex items-center justify-center">
         <svg
           ref={parantheseSVGLeftRef}
-          className="svg-as-h1 absolute -left-9 h-20 w-auto origin-right"
+          className="svg-as-h1 absolute -left-9 h-20 w-auto origin-right will-change-transform"
           fill="black"
           height="378"
           viewBox="0 0 136 378"
@@ -185,7 +185,7 @@ const ScreenLoader = () => {
         <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
           <div
             ref={divSVGLeftRef}
-            className="svg-as-h1 hidden w-[3px] origin-right bg-black md:w-[10.58px]"
+            className="svg-as-h1 hidden w-[3px] origin-right bg-black will-change-transform md:w-[10.58px]"
           ></div>
         </div>
 
@@ -196,13 +196,13 @@ const ScreenLoader = () => {
         <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
           <div
             ref={divSVGRightRef}
-            className="svg-as-h1 hidden w-[3px] origin-left bg-black md:w-[10.58px]"
+            className="svg-as-h1 hidden w-[3px] origin-left bg-black will-change-transform md:w-[10.58px]"
           ></div>
         </div>
 
         <svg
           ref={parantheseSVGRightRef}
-          className="svg-as-h1 absolute -right-9 h-20 w-auto origin-left"
+          className="svg-as-h1 absolute -right-9 h-20 w-auto origin-left will-change-transform"
           fill="black"
           height="378"
           viewBox="0 0 136 378"

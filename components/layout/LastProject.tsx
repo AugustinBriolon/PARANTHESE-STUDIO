@@ -145,7 +145,7 @@ export default function LastProject() {
         <div className="overflow-hidden">
           <p
             ref={projectTitleRef}
-            className="text-right text-xl font-medium text-white uppercase md:text-4xl"
+            className="text-right text-xl font-medium text-white uppercase will-change-transform md:text-4xl"
           >
             LES RÊVERIES DE L'ORANGERIE
           </p>
@@ -153,6 +153,7 @@ export default function LastProject() {
         <div className="w-fit overflow-hidden">
           <Button
             ref={projectButtonRef}
+            className="will-change-transform"
             href="https://les-reveries-orangerie.vercel.app/"
             variant="white"
           >
@@ -162,14 +163,14 @@ export default function LastProject() {
       </div>
 
       <div className="overflow-hidden">
-        <h3 ref={textRef} className="text-sm font-medium">
+        <h3 ref={textRef} className="text-sm font-medium will-change-transform">
           LAST REALISATION
         </h3>
       </div>
       <div className="aspect-video h-auto w-44 max-w-full"></div>
       <div
         ref={videoContainerRef}
-        className="group absolute right-6 bottom-6 z-50 aspect-video h-auto w-44 max-w-full origin-bottom-right translate-0 cursor-pointer overflow-hidden rounded-2xl md:right-10 md:bottom-10 lg:right-14 lg:bottom-14"
+        className="group absolute right-6 bottom-6 z-50 aspect-video h-auto w-44 max-w-full origin-bottom-right translate-0 cursor-pointer overflow-hidden rounded-2xl will-change-transform md:right-10 md:bottom-10 lg:right-14 lg:bottom-14"
         onClick={playVideoBigScreen}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

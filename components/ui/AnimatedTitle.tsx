@@ -19,7 +19,7 @@ const AnimatedWord = ({ text, delay = 0 }: { text: React.ReactNode; delay?: numb
 
   return (
     <div className="overflow-hidden">
-      <span ref={spanRef} className="inline-block">
+      <span ref={spanRef} className="inline-block will-change-transform">
         {text}
       </span>
     </div>

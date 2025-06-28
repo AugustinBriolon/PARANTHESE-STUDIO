@@ -23,7 +23,7 @@ export default function Header() {
       <Image
         ref={logoRef}
         alt="logo"
-        className="mx-auto max-h-60 w-full select-none"
+        className="mx-auto max-h-60 w-full will-change-transform select-none"
         draggable={false}
         height={100}
         src="/images/logo.svg"
