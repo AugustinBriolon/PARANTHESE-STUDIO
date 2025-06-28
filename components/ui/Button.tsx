@@ -1,23 +1,38 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface ButtonProps {
   children: React.ReactNode;
   variant?: 'black' | 'white';
   className?: string;
+  href?: string;
 }
 
-export default function Button({ children, variant = 'black', className = '' }: ButtonProps) {
-  const baseClasses = 'w-fit cursor-pointer rounded-full px-6 py-1.5';
-  const variantClasses =
-    variant === 'white' ? 'bg-white border border-black text-black' : 'bg-black text-white';
+const Button = forwardRef<HTMLDivElement, ButtonProps>(
+  ({ children, variant = 'black', className = '', href }, ref) => {
+    const baseClasses = 'w-fit cursor-pointer rounded-full px-6 py-1.5';
+    const variantClasses =
+      variant === 'white' ? 'bg-white border border-black text-black' : 'bg-black text-white';
 
-  return (
-    <div className={`${baseClasses} ${variantClasses} ${className}`}>
-      <span
-        className={`${variant === 'white' ? 'text-black' : 'text-white'} font-medium uppercase`}
+    return (
+      <div
+        ref={ref}
+        className={`${baseClasses} ${variantClasses} ${className}`}
+        onClick={() => {
+          if (href) {
+            window.open(href, '_blank');
+          }
+        }}
       >
-        {children}
-      </span>
-    </div>
-  );
-}
+        <span
+          className={`${variant === 'white' ? 'text-black' : 'text-white'} font-medium uppercase`}
+        >
+          {children}
+        </span>
+      </div>
+    );
+  },
+);
+
+Button.displayName = 'Button';
+
+export default Button;

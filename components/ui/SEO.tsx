@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 const SEO = ({
   title = 'PARANTHESE STUDIO',
-  description = 'Creative studio based in Paris, France, founded by Augustin Briolon. We create unique web experiences for brands and agencies.',
+  description = 'Based in Paris, Paranthese Studio creates tailor-made digital experiences that blend creativity, design, and technology to help brands stand out online.',
   image = '/ogimage.webp',
   url = 'https://paranthese.studio/',
 }) => {
@@ -12,17 +12,13 @@ const SEO = ({
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta content="#0E0E0E" name="msapplication-TileColor" />
       <meta content="#F9F8F6" name="theme-color" />
-      <title>{title}</title>
+      <title>{title ? `${title} | PARANTHESE STUDIO` : 'PARANTHESE STUDIO'}</title>
 
       <meta content={title} name="apple-mobile-web-app-title" />
       <meta content="yes" name="mobile-web-app-capable" />
       <meta content="yes" name="apple-mobile-web-app-capable" />
       <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />
       <meta content={description} name="description" />
-      <meta
-        content="paranthese studio, Augustin Briolon, creative studio, Paris, France, websites, sites, web, web experiences, design, development, animation, 3D, nextjs, gsap, threejs, unique, brands, agencies"
-        name="keyword"
-      />
       <meta content="notranslate" name="google" />
 
       {/* OGTAGS */}
@@ -32,7 +28,7 @@ const SEO = ({
       <meta content={description} property="og:description" />
       <meta content={image} property="og:image" />
       <meta content={url} property="og:url" />
-      <meta content="PARANTHESE STUDIO" property="og:bsite" />
+      <meta content="website" property="og:type" />
 
       {/* TWITTER CARDS  */}
       <meta content="summary_large_image" property="twitter:card" />
@@ -64,6 +60,31 @@ const SEO = ({
 
       {/* SEO */}
       <link href={url} rel="canonical" />
+      <meta content="index, follow" name="robots" />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Paranthese Studio',
+            url,
+            logo: `${url}/favicon/favicon.svg`,
+            sameAs: ['https://www.linkedin.com/company/paranthese-studio'],
+            founder: {
+              '@type': 'Person',
+              name: 'Augustin Briolon',
+            },
+            address: {
+              '@type': 'PostalAddress',
+              addressCountry: 'FR',
+              addressLocality: 'Paris',
+            },
+            description,
+          }),
+        }}
+      />
     </Head>
   );
 };

@@ -3,17 +3,23 @@ import { useGSAP } from '@gsap/react';
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
+import Button from '../ui/Button';
 gsap.registerPlugin(SplitText);
 
 export default function LastProject() {
   const isScreenLoader = useIsScreenLoader();
   const videoContainerRef = useRef(null);
   const textRef = useRef(null);
+  const projectTitleRef = useRef(null);
+  const projectButtonRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const showOverlay = isPlaying || isHovered;
 
   useGSAP(() => {
+    gsap.set(projectTitleRef.current, { y: 50 });
+    gsap.set(projectButtonRef.current, { y: 50 });
+
     const tl = gsap.timeline();
     tl.from(videoContainerRef.current, {
       delay: isScreenLoader ? 7 : 0,
@@ -34,23 +40,67 @@ export default function LastProject() {
   const playVideoBigScreen = () => {
     const tl = gsap.timeline();
     const mm = gsap.matchMedia();
+
+    const openProjectInfoAnimation = () => {
+      tl.to(projectTitleRef.current, {
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+      });
+      tl.to(
+        projectButtonRef.current,
+        {
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+        },
+        '<+0.2',
+      );
+    };
+    const closeProjectInfoAnimation = () => {
+      tl.to(projectTitleRef.current, {
+        y: 50,
+        duration: 0.8,
+        ease: 'power2.out',
+      });
+      tl.to(
+        projectButtonRef.current,
+        {
+          y: 50,
+          duration: 0.8,
+          ease: 'power2.out',
+          onComplete: () => setIsPlaying(false),
+        },
+        '-0.2',
+      );
+    };
+
     if (isPlaying) {
-      setIsPlaying(false);
       mm.add('(min-width: 950px)', () => {
-        tl.to(videoContainerRef.current, {
-          scale: 1,
-          borderRadius: '16px',
-          duration: 1,
-          ease: 'power2.inOut',
-        });
+        closeProjectInfoAnimation();
+        tl.to(
+          videoContainerRef.current,
+          {
+            scale: 1,
+            borderRadius: '16px',
+            duration: 1,
+            ease: 'power2.inOut',
+          },
+          '<',
+        );
       });
       mm.add('(max-width: 950px)', () => {
-        tl.to(videoContainerRef.current, {
-          width: '176px',
-          borderRadius: '16px',
-          duration: 1,
-          ease: 'power2.inOut',
-        });
+        closeProjectInfoAnimation();
+        tl.to(
+          videoContainerRef.current,
+          {
+            width: '176px',
+            borderRadius: '16px',
+            duration: 1,
+            ease: 'power2.inOut',
+          },
+          '<',
+        );
       });
       return;
     }
@@ -63,6 +113,7 @@ export default function LastProject() {
         duration: 1,
         ease: 'power2.inOut',
       });
+      openProjectInfoAnimation();
     });
     mm.add('(max-width: 950px)', () => {
       tl.to(videoContainerRef.current, {
@@ -71,6 +122,7 @@ export default function LastProject() {
         duration: 1,
         ease: 'power2.inOut',
       });
+      openProjectInfoAnimation();
     });
   };
 
@@ -82,13 +134,36 @@ export default function LastProject() {
   return (
     <div className="flex flex-col items-end justify-end gap-2">
       <div
-        className={`fixed z-40 bg-black/90 transition-all duration-300 ${showOverlay ? 'inset-0 opacity-100' : 'invisible inset-1 opacity-0'}`}
+        className={`fixed z-30 bg-black/95 transition-all duration-300 ${showOverlay ? 'inset-0 opacity-100' : 'invisible inset-1 opacity-0'}`}
         onClick={playVideoBigScreen}
       ></div>
+
+      <div
+        className={`absolute top-14 right-14 z-40 flex flex-col items-end justify-start gap-2 ${showOverlay ? 'opacity-100' : 'invisible inset-1 opacity-0'}`}
+      >
+        <div className="overflow-hidden">
+          <p
+            ref={projectTitleRef}
+            className="text-right text-xl font-medium text-white uppercase md:text-4xl"
+          >
+            LES RÊVERIES DE L'ORANGERIE
+          </p>
+        </div>
+        <div className="w-fit overflow-hidden">
+          <Button
+            ref={projectButtonRef}
+            href="https://les-reveries-orangerie.vercel.app/"
+            variant="white"
+          >
+            EXPLORE
+          </Button>
+        </div>
+      </div>
+
       <div className="overflow-hidden">
-        <p ref={textRef} className="text-sm font-medium">
+        <h3 ref={textRef} className="text-sm font-medium">
           LAST REALISATION
-        </p>
+        </h3>
       </div>
       <div className="aspect-video h-auto w-44 max-w-full"></div>
       <div
@@ -99,7 +174,14 @@ export default function LastProject() {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="relative z-50 aspect-video h-full w-full">
-          <video className="h-full w-full scale-105 object-cover" autoPlay loop muted playsInline>
+          <video
+            aria-hidden="true"
+            className="h-full w-full scale-105 object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
             <source src="/videos/orangerie.webm" type="video/webm" />
             <source src="/videos/orangerie.mp4" type="video/mp4" />
           </video>
