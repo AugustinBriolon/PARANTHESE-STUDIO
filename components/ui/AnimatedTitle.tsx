@@ -31,8 +31,8 @@ export default function AnimatedTitle() {
     <div className="flex h-full items-center justify-start">
       <h2>
         <AnimatedWord text="Creative Studio" />
-        <AnimatedWord delay={0.1} text="specialized in immersive" />
-        <AnimatedWord delay={0.2} text="experiences beyond boundaries." />
+        <AnimatedWord delay={0.1} text="Building not just websites" />
+        <AnimatedWord delay={0.2} text="Based in Paris" />
       </h2>
     </div>
   );

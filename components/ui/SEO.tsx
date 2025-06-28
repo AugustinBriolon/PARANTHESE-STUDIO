@@ -1,9 +1,9 @@
 import Head from 'next/head';
 
 const SEO = ({
-  title = 'PARANTHESE STUDIO',
+  title = 'PARANTHESE STUDIO | Creative Studio',
   description = 'Based in Paris, Paranthese Studio creates tailor-made digital experiences that blend creativity, design, and technology to help brands stand out online.',
-  image = '/ogimage.webp',
+  image = '/images/ogimage.webp',
   url = 'https://paranthese.studio/',
 }) => {
   return (
@@ -12,7 +12,7 @@ const SEO = ({
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta content="#0E0E0E" name="msapplication-TileColor" />
       <meta content="#F9F8F6" name="theme-color" />
-      <title>{title ? `${title} | PARANTHESE STUDIO` : 'PARANTHESE STUDIO'}</title>
+      <title>{title}</title>
 
       <meta content={title} name="apple-mobile-web-app-title" />
       <meta content="yes" name="mobile-web-app-capable" />

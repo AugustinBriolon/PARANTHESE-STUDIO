@@ -9,7 +9,7 @@ interface ButtonProps {
 
 const Button = forwardRef<HTMLDivElement, ButtonProps>(
   ({ children, variant = 'black', className = '', href }, ref) => {
-    const baseClasses = 'w-fit cursor-pointer rounded-full px-6 py-1.5';
+    const baseClasses = 'w-fit cursor-pointer rounded-full px-4 py-1.5 sm:px-6 sm:py-1.5';
     const variantClasses =
       variant === 'white' ? 'bg-white border border-black text-black' : 'bg-black text-white';
 
@@ -24,7 +24,7 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         }}
       >
         <span
-          className={`${variant === 'white' ? 'text-black' : 'text-white'} font-medium uppercase`}
+          className={`${variant === 'white' ? 'text-black' : 'text-white'} font-medium whitespace-nowrap uppercase`}
         >
           {children}
         </span>

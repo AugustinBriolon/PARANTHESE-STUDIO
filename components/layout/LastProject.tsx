@@ -71,7 +71,7 @@ export default function LastProject() {
           ease: 'power2.out',
           onComplete: () => setIsPlaying(false),
         },
-        '-0.2',
+        '<+0.2',
       );
     };
 
@@ -86,7 +86,7 @@ export default function LastProject() {
             duration: 1,
             ease: 'power2.inOut',
           },
-          '<',
+          '+0.2',
         );
       });
       mm.add('(max-width: 950px)', () => {
@@ -99,7 +99,7 @@ export default function LastProject() {
             duration: 1,
             ease: 'power2.inOut',
           },
-          '<',
+          '+0.2',
         );
       });
       return;
