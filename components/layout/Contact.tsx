@@ -41,7 +41,7 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:items-center md:gap-5">
       <Button
         ref={contactButtonRef}
         className="origin-bottom-left will-change-transform"
@@ -49,14 +49,17 @@ export default function Contact() {
       >
         CONTACT
       </Button>
-      <a
-        ref={linkedinRef}
-        className="origin-bottom-left text-lg will-change-transform"
-        href="https://www.linkedin.com/company/paranthese-studio/"
-        target="_blank"
-      >
-        LINKEDIN
-      </a>
+      <div className="group relative">
+        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 will-change-transform group-hover:scale-x-100"></div>
+        <a
+          ref={linkedinRef}
+          className="origin-bottom-left text-lg will-change-transform"
+          href="https://www.linkedin.com/company/paranthese-studio/"
+          target="_blank"
+        >
+          LINKEDIN
+        </a>
+      </div>
       <Time ref={timeRef} />
     </div>
   );

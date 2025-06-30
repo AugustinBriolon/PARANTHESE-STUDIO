@@ -16,16 +16,16 @@ export default function LastProject() {
   const [isHovered, setIsHovered] = useState(false);
   const showOverlay = isPlaying || isHovered;
 
-  const tl = gsap.timeline();
+  const tl = useRef<GSAPTimeline | null>(null);
   const mm = gsap.matchMedia();
 
-  const openProjectInfoAnimation = () => {
-    tl.to(projectTitleRef.current, {
+  const openProjectInfoAnimation = (timeline: GSAPTimeline) => {
+    timeline.to(projectTitleRef.current, {
       y: 0,
       duration: 0.8,
       ease: 'power2.out',
     });
-    tl.to(
+    timeline.to(
       projectButtonRef.current,
       {
         y: 0,
@@ -36,13 +36,13 @@ export default function LastProject() {
     );
   };
 
-  const closeProjectInfoAnimation = () => {
-    tl.to(projectTitleRef.current, {
+  const closeProjectInfoAnimation = (timeline: GSAPTimeline) => {
+    timeline.to(projectTitleRef.current, {
       y: 50,
       duration: 0.8,
       ease: 'power2.out',
     });
-    tl.to(
+    timeline.to(
       projectButtonRef.current,
       {
         y: 50,
@@ -55,54 +55,61 @@ export default function LastProject() {
   };
 
   const playVideoBigScreen = () => {
+    if (tl.current) tl.current.kill();
+    tl.current = gsap.timeline();
+
     if (isPlaying) {
       mm.add('(min-width: 950px)', () => {
-        closeProjectInfoAnimation();
-        tl.to(
-          videoContainerRef.current,
-          {
-            scale: 1,
-            borderRadius: '16px',
-            duration: 1,
-            ease: 'power2.inOut',
-          },
-          '+0.2',
-        );
+        if (tl.current) {
+          closeProjectInfoAnimation(tl.current);
+          tl.current.to(
+            videoContainerRef.current,
+            {
+              scale: 1,
+              borderRadius: '16px',
+              duration: 1,
+              ease: 'power2.inOut',
+            },
+            '+0.2',
+          );
+        }
       });
       mm.add('(max-width: 950px)', () => {
-        closeProjectInfoAnimation();
-        tl.to(
-          videoContainerRef.current,
-          {
-            width: '176px',
-            borderRadius: '16px',
-            duration: 1,
-            ease: 'power2.inOut',
-          },
-          '+0.2',
-        );
+        if (tl.current) {
+          closeProjectInfoAnimation(tl.current);
+          tl.current.to(
+            videoContainerRef.current,
+            {
+              width: '176px',
+              borderRadius: '16px',
+              duration: 1,
+              ease: 'power2.inOut',
+            },
+            '+0.2',
+          );
+        }
       });
       return;
     }
 
     setIsPlaying(true);
     mm.add('(min-width: 950px)', () => {
-      tl.to(videoContainerRef.current, {
+      tl.current?.to(videoContainerRef.current, {
         scale: 5,
         borderRadius: '3px',
         duration: 1,
         ease: 'power2.inOut',
       });
-      openProjectInfoAnimation();
+      openProjectInfoAnimation(tl.current!);
     });
     mm.add('(max-width: 950px)', () => {
-      tl.to(videoContainerRef.current, {
+      tl.current?.to(videoContainerRef.current, {
         width: 'calc(100% - 50px)',
         borderRadius: '16px',
         duration: 1,
         ease: 'power2.inOut',
       });
-      openProjectInfoAnimation();
+      openProjectInfoAnimation(tl.current!);
     });
   };
 
@@ -150,7 +157,7 @@ export default function LastProject() {
             LES RÊVERIES DE L'ORANGERIE
           </p>
         </div>
-        <div className="w-fit overflow-hidden">
+        <div className="w-auto overflow-hidden">
           <Button
             ref={projectButtonRef}
             className="will-change-transform"

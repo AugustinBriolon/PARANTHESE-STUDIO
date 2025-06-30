@@ -6,12 +6,11 @@ import gsap from 'gsap';
 
 const AnimatedWord = ({ text, delay = 0 }: { text: React.ReactNode; delay?: number }) => {
   const isScreenLoader = useIsScreenLoader();
-  const spanRef = useRef<HTMLSpanElement>(null);
+  const spanRef = useRef(null);
 
   useGSAP(() => {
     gsap.from(spanRef.current, {
       delay: isScreenLoader ? 7 + delay : delay,
-      // delay: delay,
       y: 100,
       duration: 1.8,
       ease: 'power2.inOut',
@@ -20,9 +19,9 @@ const AnimatedWord = ({ text, delay = 0 }: { text: React.ReactNode; delay?: numb
 
   return (
     <div className="overflow-hidden">
-      <span ref={spanRef} className="inline-block will-change-transform">
+      <h2 ref={spanRef} className="inline-block will-change-transform">
         {text}
-      </span>
+      </h2>
     </div>
   );
 };
@@ -30,11 +29,11 @@ const AnimatedWord = ({ text, delay = 0 }: { text: React.ReactNode; delay?: numb
 export default function AnimatedTitle() {
   return (
     <div className="flex h-full items-center justify-start">
-      <h2>
+      <div>
         <AnimatedWord text="Creative Studio" />
         <AnimatedWord delay={0.1} text="Building not just websites" />
         <AnimatedWord delay={0.2} text="Based in Paris" />
-      </h2>
+      </div>
     </div>
   );
 }
