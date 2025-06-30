@@ -49,11 +49,10 @@ export default function Contact() {
       >
         CONTACT
       </Button>
-      <div className="group relative">
+      <div ref={linkedinRef} className="group relative origin-bottom-left will-change-transform">
         <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 will-change-transform group-hover:scale-x-100"></div>
         <a
-          ref={linkedinRef}
-          className="origin-bottom-left text-lg will-change-transform"
+          className="text-lg"
           href="https://www.linkedin.com/company/paranthese-studio/"
           target="_blank"
         >
