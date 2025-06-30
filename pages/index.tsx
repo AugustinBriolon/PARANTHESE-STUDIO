@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Header />
       <AnimatedTitle />
-      <div className="flex justify-between gap-2 sm:gap-10">
+      <div className="flex items-end justify-between gap-2 sm:gap-10">
         <Contact />
         <LastProject />
       </div>

@@ -11,8 +11,9 @@ const AnimatedWord = ({ text, delay = 0 }: { text: React.ReactNode; delay?: numb
   useGSAP(() => {
     gsap.from(spanRef.current, {
       delay: isScreenLoader ? 7 + delay : delay,
+      // delay: delay,
       y: 100,
-      duration: 1,
+      duration: 1.8,
       ease: 'power2.inOut',
     });
   });

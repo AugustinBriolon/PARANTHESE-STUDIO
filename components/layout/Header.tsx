@@ -13,7 +13,7 @@ export default function Header() {
       delay: isScreenLoader ? 7 : 0,
       opacity: 0,
       y: -50,
-      duration: 1.5,
+      duration: 1.8,
       ease: 'power2.out',
     });
   }, []);

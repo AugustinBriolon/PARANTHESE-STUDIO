@@ -122,7 +122,7 @@ export default function LastProject() {
       opacity: 0,
       y: 20,
       stagger: 0.02,
-      duration: 0.4,
+      duration: 0.8,
       ease: 'power2.out',
     });
   }, []);

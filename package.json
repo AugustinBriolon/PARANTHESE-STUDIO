@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@number-flow/react": "^0.5.10",
     "gsap": "^3.13.0",
     "next": "15.3.4",
     "react": "^19.0.0",

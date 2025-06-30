@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang='fr'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <!-- STYLE -->
+  <style>
+    :root {
+      --color-black: #0E0E0E;
+      --color-white: #F9F8F6;
+      --font-borna: Arial, sans-serif;
+    }
+
+    body {
+      background: var(--color-white);
+      font-family: var(--font-borna);
+      color: var(--color-black);
+    }
+
+    .signature-table {
+      font-family: var(--font-borna);
+      font-size: 15px;
+      color: var(--color-black);
+      background: var(--color-white);
+    }
+
+    .signature-logo {
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .signature-title {
+      font-size: 18px;
+      color: var(--color-black);
+      font-weight: bold;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-person {
+      font-size: 15px;
+      color: var(--color-black);
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .signature-role {
+      font-size: 13px;
+      color: var(--color-black);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .signature-link {
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
+    .signature-city {
+      margin-bottom: 6px;
+      color: var(--color-black);
+    }
+
+    .signature-mail {
+      color: var(--color-black);
+      text-decoration: underline;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .signature-content>*:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  </style>
+  <title>Signature Paranthese Studio</title>
+</head>
+
+<body>
+  <table cellpadding="0" cellspacing="0" class="signature-table">
+    <tr>
+      <td style="vertical-align: middle; padding-right: 18px;">
+        <a href="https://paranthese.studio" target="_blank" rel="noopener" style="display: inline-block;">
+          <img src="https://paranthese.studio/images/favicon.png" alt="Paranthese Studio" width="44" height="44"
+            class="signature-logo" />
+        </a>
+      </td>
+      <td class="signature-content">
+        <div class="signature-person">Augustin BRIOLON</div>
+        <div class="signature-role">CREATIVE DEVELOPPER</div>
+        <a href="mailto:hello@paranthese.studio" class="signature-mail">hello@paranthese.studio</a>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>
