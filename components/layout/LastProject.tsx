@@ -119,7 +119,7 @@ export default function LastProject() {
 
     const tl = gsap.timeline();
     tl.from(videoContainerRef.current, {
-      delay: isScreenLoader ? 7 : 0,
+      delay: isScreenLoader ? 6.5 : 0,
       scale: 0,
       duration: 1,
       ease: 'power2.inOut',
@@ -142,7 +142,7 @@ export default function LastProject() {
   return (
     <div className="flex flex-col items-end justify-end gap-2">
       <div
-        className={`fixed z-30 bg-black/95 transition-all duration-300 ${showOverlay ? 'inset-0 opacity-100' : 'invisible inset-1 opacity-0'}`}
+        className={`fixed bg-black/95 transition-all duration-300 ${showOverlay ? 'inset-0 z-30 opacity-100' : 'pointer-events-none invisible inset-1 -z-1 opacity-0'}`}
         onClick={playVideoBigScreen}
       ></div>
 

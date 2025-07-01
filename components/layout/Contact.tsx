@@ -15,7 +15,7 @@ export default function Contact() {
     const tl = gsap.timeline();
 
     tl.from(contactButtonRef.current, {
-      delay: isScreenLoader ? 7 : 0,
+      delay: isScreenLoader ? 6.5 : 0,
       scale: 0,
       duration: 1,
       ease: 'power2.inOut',
@@ -45,7 +45,7 @@ export default function Contact() {
       <Button
         ref={contactButtonRef}
         className="origin-bottom-left will-change-transform"
-        href="mailto:hello@creative-studio.com"
+        href="mailto:hello@paranthese.studio"
       >
         CONTACT
       </Button>
