@@ -1,2 +1,9 @@
+# *
 User-agent: *
-Disallow: /
+Allow: /
+
+# Host
+Host: https://paranthese.studio
+
+# Sitemaps
+Sitemap: https://paranthese.studio/sitemap.xml

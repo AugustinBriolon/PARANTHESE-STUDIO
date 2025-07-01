@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "format": "eslint --fix \"**/*.{ts,tsx,js,jsx}\"",
@@ -16,6 +17,7 @@
     "@number-flow/react": "^0.5.10",
     "gsap": "^3.13.0",
     "next": "15.3.4",
+    "next-sitemap": "^4.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
