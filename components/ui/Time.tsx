@@ -17,7 +17,8 @@ const Time = forwardRef<HTMLDivElement, object>((props, ref) => {
     return () => clearInterval(interval);
   }, []);
 
-  const hh = Math.floor(seconds / 3600);
+  const hh24 = Math.floor(seconds / 3600);
+  const hh = ((hh24 + 11) % 12) + 1;
   const mm = Math.floor((seconds % 3600) / 60);
   const ss = seconds % 60;
 
@@ -27,7 +28,7 @@ const Time = forwardRef<HTMLDivElement, object>((props, ref) => {
         ref={ref}
         className="text-md flex origin-bottom-left items-baseline will-change-transform"
       >
-        Paris&nbsp;
+        PARIS&nbsp;
         <NumberFlow format={{ minimumIntegerDigits: 2 }} value={hh} />
         <NumberFlow
           digits={{ 1: { max: 5 } }}

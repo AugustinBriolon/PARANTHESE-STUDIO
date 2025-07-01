@@ -10,8 +10,8 @@ const SEO = ({
     <Head>
       <meta charSet="utf-8" />
       <meta content="width=device-width, initial-scale=1" name="viewport" />
-      <meta content="#0E0E0E" name="msapplication-TileColor" />
-      <meta content="#F9F8F6" name="theme-color" />
+      <meta content="#F9F8F6" name="msapplication-TileColor" />
+      <meta content="#0E0E0E" name="theme-color" />
       <title>{title}</title>
 
       <meta content={title} name="apple-mobile-web-app-title" />
