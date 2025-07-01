@@ -16,6 +16,10 @@ export default function LastProject() {
   const [isHovered, setIsHovered] = useState(false);
   const showOverlay = isPlaying || isHovered;
 
+  const isTouchDevice =
+    typeof window !== 'undefined' &&
+    ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.maxTouchPoints > 0);
+
   const tl = useRef<GSAPTimeline | null>(null);
   const mm = gsap.matchMedia();
 
@@ -179,8 +183,12 @@ export default function LastProject() {
         ref={videoContainerRef}
         className="group absolute right-6 bottom-6 z-50 aspect-video h-auto w-44 max-w-full origin-bottom-right translate-0 cursor-pointer overflow-hidden rounded-2xl will-change-transform md:right-10 md:bottom-10 lg:right-14 lg:bottom-14"
         onClick={playVideoBigScreen}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => {
+          if (!isTouchDevice) setIsHovered(true);
+        }}
+        onMouseLeave={() => {
+          if (!isTouchDevice) setIsHovered(false);
+        }}
       >
         <div className="relative z-50 aspect-video h-full w-full">
           <video
