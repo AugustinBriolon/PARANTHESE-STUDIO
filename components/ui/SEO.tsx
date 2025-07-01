@@ -68,6 +68,7 @@ const SEO = ({
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
+            '@id': 'https://paranthese.studio/',
             name: 'Paranthese Studio',
             url,
             logo: `${url}/favicon/favicon.svg`,

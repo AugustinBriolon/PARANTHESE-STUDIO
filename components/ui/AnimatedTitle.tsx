@@ -33,6 +33,7 @@ export default function AnimatedTitle() {
         <AnimatedWord text="Creative Studio" />
         <AnimatedWord delay={0.1} text="Building not just websites" />
         <AnimatedWord delay={0.2} text="Based in Paris" />
+        <h2 className="sr-only">PARANTHESE STUDIO</h2>
       </div>
     </div>
   );

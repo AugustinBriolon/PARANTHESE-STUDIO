@@ -22,7 +22,7 @@ export default function Header() {
     <div className="w-full">
       <Image
         ref={logoRef}
-        alt="logo"
+        alt="PARANTHESE STUDIO logo"
         className="mx-auto max-h-60 w-full will-change-transform select-none"
         draggable={false}
         height={100}
@@ -30,6 +30,7 @@ export default function Header() {
         width={100}
         priority
       />
+      <h1 className="sr-only">PARANTHESE STUDIO</h1>
     </div>
   );
 }

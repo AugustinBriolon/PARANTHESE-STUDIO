@@ -60,6 +60,7 @@ export default function Contact() {
         </a>
       </div>
       <Time ref={timeRef} />
+      <h3 className="sr-only">PARANTHESE STUDIO</h3>
     </div>
   );
 }
