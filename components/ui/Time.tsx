@@ -7,7 +7,7 @@ function getParisTimeInSeconds() {
   return paris.getHours() * 3600 + paris.getMinutes() * 60 + paris.getSeconds();
 }
 
-const Time = forwardRef<HTMLDivElement, object>((props, ref) => {
+const Time = forwardRef<HTMLDivElement, object>((_, ref) => {
   const [seconds, setSeconds] = useState(getParisTimeInSeconds());
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Time = forwardRef<HTMLDivElement, object>((props, ref) => {
   }, []);
 
   const hh24 = Math.floor(seconds / 3600);
-  const hh = ((hh24 + 11) % 12) + 1;
+  // const hh = ((hh24 + 11) % 12) + 1;
   const mm = Math.floor((seconds % 3600) / 60);
   const ss = seconds % 60;
 
@@ -29,7 +29,7 @@ const Time = forwardRef<HTMLDivElement, object>((props, ref) => {
         className="text-md flex origin-bottom-left items-baseline will-change-transform"
       >
         PARIS&nbsp;
-        <NumberFlow format={{ minimumIntegerDigits: 2 }} value={hh} />
+        <NumberFlow format={{ minimumIntegerDigits: 2 }} value={hh24} />
         <NumberFlow
           digits={{ 1: { max: 5 } }}
           format={{ minimumIntegerDigits: 2 }}
