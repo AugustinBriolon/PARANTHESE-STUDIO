@@ -31,6 +31,10 @@ export default function Header() {
         priority
       />
       <h1 className="sr-only">PARANTHESE STUDIO</h1>
+      <p className="sr-only">
+        Paranthese Studio is a creative studio based in Paris. We design custom, animated and
+        innovative websites that combine design, technology and storytelling.
+      </p>
     </div>
   );
 }

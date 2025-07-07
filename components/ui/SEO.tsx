@@ -4,7 +4,7 @@ const SEO = ({
   title = 'PARANTHESE STUDIO | Creative Studio',
   description = 'Based in Paris, Paranthese Studio creates tailor-made digital experiences that blend creativity, design, and technology to help brands stand out online.',
   image = '/images/ogimage.webp',
-  url = 'https://paranthese.studio/',
+  url = 'https://www.paranthese.studio/',
 }) => {
   return (
     <Head>

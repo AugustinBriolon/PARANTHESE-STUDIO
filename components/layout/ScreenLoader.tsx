@@ -38,6 +38,12 @@ const ScreenLoader = () => {
         type: 'chars',
       });
 
+      tl.to(mainTextRef.current, {
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.inOut',
+      });
+
       tl.from(
         parantheseSVGLeftRef.current,
         {
@@ -190,7 +196,9 @@ const ScreenLoader = () => {
         </div>
 
         <div className="overflow-hidden">
-          <h1 ref={mainTextRef}>Paranthese Studio</h1>
+          <h1 ref={mainTextRef} className="opacity-0">
+            Paranthese Studio
+          </h1>
         </div>
 
         <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
