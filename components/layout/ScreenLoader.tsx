@@ -8,44 +8,45 @@ import { useRef } from 'react';
 
 gsap.registerPlugin(SplitText, DrawSVGPlugin, MorphSVGPlugin);
 
-const initialPathDLeft =
+const initialPath =
   'M117 377.8C83.4 361.533 55.5333 337 33.4 304.2C11.5333 271.4 0.600001 233 0.600001 189C0.600001 145 11.5333 106.6 33.4 73.8C55.5333 41 83.4 16.4667 117 0.199994L135.8 33C107.533 47.9333 84.7333 68.8667 67.4 95.8C50.0667 122.467 41.4 153.533 41.4 189C41.4 224.467 50.0667 255.667 67.4 282.6C84.7333 309.267 107.533 330.067 135.8 345L117 377.8Z';
-const initialPathDRight =
-  'M0.800049 344.999C29.0667 330.066 51.8667 309.266 69.2001 282.599C86.5334 255.666 95.2001 224.466 95.2001 188.999C95.2001 153.533 86.5334 122.466 69.2001 95.7992C51.8667 68.8659 29.0667 47.9326 0.800049 32.9992L19.6 0.199219C53.2001 16.4659 80.9334 40.9992 102.8 73.7992C124.933 106.599 136 144.999 136 188.999C136 232.999 124.933 271.399 102.8 304.199C80.9334 336.999 53.2001 361.533 19.6 377.799L0.800049 344.999Z';
 const transformedPath = 'M0 378V0H40V378H0Z';
 
 const ScreenLoader = () => {
   const isScreenLoader = useIsScreenLoader();
   const screenLoaderRef = useRef(null);
   const mainTextRef = useRef(null);
-  const parantheseSVGLeftRef = useRef(null);
-  const parantheseSVGRightRef = useRef(null);
-  const paranthesePathRightRef = useRef(null);
-  const paranthesePathLefttRef = useRef(null);
-  const divLeftRef = useRef(null);
-  const divRightRef = useRef(null);
-  const divSVGLeftRef = useRef(null);
-  const divSVGRightRef = useRef(null);
+  const textContainerRef = useRef(null);
+  const parantheseRefs = {
+    left: {
+      svg: useRef(null),
+      path: useRef(null),
+    },
+    right: {
+      svg: useRef(null),
+      path: useRef(null),
+    },
+  };
+  const transitionDivRefs = {
+    left: useRef(null),
+    right: useRef(null),
+  };
+
+  const backgroundRef = useRef(null);
 
   useGSAP(
     () => {
-      if (!parantheseSVGLeftRef.current || !parantheseSVGRightRef.current) {
-        return;
-      }
+      // if (!parantheseSVGLeftRef.current || !parantheseSVGRightRef.current) {
+      //   return;
+      // }
 
       const tl = gsap.timeline();
       const split = SplitText.create(mainTextRef.current, {
         type: 'chars',
       });
 
-      tl.to(mainTextRef.current, {
-        opacity: 1,
-        duration: 1,
-        ease: 'power2.inOut',
-      });
-
       tl.from(
-        parantheseSVGLeftRef.current,
+        parantheseRefs.left.svg.current,
         {
           delay: 0.5,
           opacity: 0,
@@ -69,7 +70,7 @@ const ScreenLoader = () => {
       );
 
       tl.from(
-        parantheseSVGRightRef.current,
+        parantheseRefs.right.svg.current,
         {
           opacity: 0,
           y: 100,
@@ -81,33 +82,18 @@ const ScreenLoader = () => {
 
       tl.addLabel('tranformParanthese');
 
-      const { chars } = split;
-      const customOrder = [];
-      let left = 0;
-      let right = chars.length - 1;
-      while (left <= right) {
-        if (left === right) {
-          customOrder.push(chars[left]);
-        } else {
-          customOrder.push(chars[left], chars[right]);
-        }
-        left++;
-        right--;
-      }
-
       tl.to(
-        customOrder,
+        textContainerRef.current,
         {
-          stagger: 0.02,
-          opacity: 0,
-          duration: 0.5,
+          width: 0,
+          duration: 1,
           ease: 'power2.inOut',
         },
         'tranformParanthese',
       );
 
       tl.to(
-        [paranthesePathRightRef.current, paranthesePathLefttRef.current],
+        [parantheseRefs.left.path.current, parantheseRefs.right.path.current],
         {
           morphSVG: transformedPath,
           duration: 0.8,
@@ -117,48 +103,39 @@ const ScreenLoader = () => {
       );
 
       tl.to(
-        [parantheseSVGLeftRef.current, parantheseSVGRightRef.current],
+        [transitionDivRefs.left.current, transitionDivRefs.right.current],
         {
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          display: 'block',
+          scaleY: 50,
           duration: 1,
           ease: 'power2.inOut',
         },
-        'tranformParanthese',
+        '>0.1',
       );
-
-      tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
-        display: 'block',
-        scaleY: 30,
-        duration: 1,
-        ease: 'power2.inOut',
-      });
 
       tl.to(
-        [parantheseSVGLeftRef.current, parantheseSVGRightRef.current],
+        [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
         {
+          display: 'none',
           opacity: 0,
           duration: 0,
-          display: 'none',
-          ease: 'power2.inOut',
         },
-        '<',
+        '<0.1',
       );
 
-      tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
+      tl.to([transitionDivRefs.left.current, transitionDivRefs.right.current], {
         scaleX: 100,
         duration: 1,
         ease: 'power2.inOut',
       });
 
-      tl.set([divLeftRef.current, divRightRef.current], {
+      tl.set(backgroundRef.current, {
         display: 'none',
         opacity: 0,
+        duration: 0,
       });
 
-      tl.to([divSVGLeftRef.current, divSVGRightRef.current], {
+      tl.to([transitionDivRefs.left.current, transitionDivRefs.right.current], {
         x: (i) => [-1100, 1100][i],
         duration: 1,
         ease: 'power2.inOut',
@@ -166,6 +143,7 @@ const ScreenLoader = () => {
 
       tl.to(screenLoaderRef.current, {
         display: 'none',
+        duration: 0,
       });
     },
     { dependencies: [isScreenLoader] },
@@ -178,50 +156,52 @@ const ScreenLoader = () => {
     >
       <div className="relative flex items-center justify-center">
         <svg
-          ref={parantheseSVGLeftRef}
-          className="svg-as-h1 absolute left-[-5%] h-20 w-auto origin-right will-change-transform"
-          fill="black"
+          ref={parantheseRefs.left.svg}
+          className="svg-as-h1 absolute left-0 h-20 w-auto origin-right will-change-transform"
+          fill="#0E0E0E"
           height="378"
           viewBox="0 0 136 378"
           width="136"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path ref={paranthesePathLefttRef} d={initialPathDLeft} />
+          <path ref={parantheseRefs.left.path} d={initialPath} />
         </svg>
-        <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
+
+        <div className="fixed top-1/2 left-1/2 z-1 -translate-1/2">
           <div
-            ref={divSVGLeftRef}
-            className="svg-as-h1 hidden w-[3px] origin-right bg-black will-change-transform md:w-[10.58px]"
+            ref={transitionDivRefs.left}
+            className="svg-as-h1 hidden w-2 origin-right bg-black will-change-transform md:w-4"
           ></div>
         </div>
 
-        <div className="overflow-hidden">
-          <h1 ref={mainTextRef} className="opacity-0">
+        <div ref={textContainerRef} className="flex justify-center overflow-hidden">
+          <h1 ref={mainTextRef} className="text-center whitespace-nowrap">
+            <span className="w-4 md:w-10"></span>
             Paranthese Studio
+            <span className="w-4 md:w-10"></span>
           </h1>
         </div>
 
-        <div className="absolute top-1/2 left-[47%] z-1 translate-x-1/2 -translate-y-1/2">
+        <div className="fixed top-1/2 left-1/2 z-1 -translate-1/2">
           <div
-            ref={divSVGRightRef}
-            className="svg-as-h1 hidden w-[3px] origin-left bg-black will-change-transform md:w-[10.58px]"
+            ref={transitionDivRefs.right}
+            className="svg-as-h1 hidden w-2 origin-left bg-black will-change-transform md:w-4"
           ></div>
         </div>
 
         <svg
-          ref={parantheseSVGRightRef}
-          className="svg-as-h1 absolute right-[-5%] h-20 w-auto origin-left will-change-transform"
-          fill="black"
+          ref={parantheseRefs.right.svg}
+          className="svg-as-h1 absolute right-0 h-20 w-auto rotate-180 will-change-transform"
+          fill="#0E0E0E"
           height="378"
           viewBox="0 0 136 378"
           width="136"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path ref={paranthesePathRightRef} d={initialPathDRight} />
+          <path ref={parantheseRefs.right.path} d={initialPath} />
         </svg>
       </div>
-      <div ref={divLeftRef} className="absolute bottom-0 left-0 -z-1 h-full w-1/2 bg-white" />
-      <div ref={divRightRef} className="absolute right-0 bottom-0 -z-1 h-full w-1/2 bg-white" />
+      <div ref={backgroundRef} className="absolute right-0 bottom-0 -z-1 h-full w-full bg-white" />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import Head from 'next/head';
 const SEO = ({
   title = 'PARANTHESE STUDIO | Creative Studio',
   description = 'Based in Paris, Paranthese Studio creates tailor-made digital experiences that blend creativity, design, and technology to help brands stand out online.',
-  image = '/images/ogimage.webp',
+  image = '/images/ogimage-paranthese-studio.webp',
   url = 'https://www.paranthese.studio/',
 }) => {
   return (
@@ -55,7 +55,6 @@ const SEO = ({
       <link href="/favicon/favicon.svg" rel="icon" type="image/svg+xml" />
       <link href="/favicon/favicon.ico" rel="shortcut icon" />
       <link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
-      <meta content="PARANTHESE STUDIO" name="apple-mobile-web-app-title" />
       <link href="/favicon/site.webmanifest" rel="manifest" />
 
       {/* SEO */}
@@ -68,11 +67,15 @@ const SEO = ({
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            '@id': 'https://paranthese.studio/',
+            '@id': 'https://www.paranthese.studio/',
             name: 'Paranthese Studio',
-            url,
+            alternateName: 'Paranthese',
+            url: url,
             logo: `${url}/favicon/favicon.svg`,
-            sameAs: ['https://www.linkedin.com/company/paranthese-studio'],
+            sameAs: [
+              'https://www.linkedin.com/company/paranthese-studio',
+              'https://www.linkedin.com/in/augustin-briolon',
+            ],
             founder: {
               '@type': 'Person',
               name: 'Augustin Briolon',
