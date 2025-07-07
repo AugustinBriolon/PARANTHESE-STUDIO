@@ -151,7 +151,7 @@ export default function LastProject() {
       ></div>
 
       <div
-        className={`absolute top-14 right-14 z-40 flex flex-col items-end justify-start gap-2 ${showOverlay ? 'opacity-100' : 'invisible inset-1 opacity-0'}`}
+        className={`absolute top-0 right-0 z-40 flex w-full flex-col items-end justify-start gap-2 p-4 md:p-6 lg:p-8 ${showOverlay ? 'opacity-100' : 'invisible inset-1 opacity-0'}`}
       >
         <div className="overflow-hidden">
           <p

@@ -43,7 +43,7 @@ export default function AnimatedTitle() {
         <AnimatedWord delay={0.3}>Based in Paris</AnimatedWord>
         <AnimatedWord delay={0.4}>
           <a
-            className="group relative text-xs md:text-lg"
+            className="group relative pb-1 text-xs md:text-lg"
             href="https://august1.dev/"
             target="_blank"
           >
