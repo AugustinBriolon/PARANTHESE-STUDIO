@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { useRef } from 'react';
 import Button from '../ui/Button';
 import Time from '../ui/Time';
+import { timeToLoad } from './ScreenLoader';
 
 export default function Contact() {
   const isScreenLoader = useIsScreenLoader();
@@ -15,7 +16,7 @@ export default function Contact() {
     const tl = gsap.timeline();
 
     tl.from(contactButtonRef.current, {
-      delay: isScreenLoader ? 6.5 : 0,
+      delay: isScreenLoader ? timeToLoad : 0,
       scale: 0,
       duration: 1,
       ease: 'power2.inOut',

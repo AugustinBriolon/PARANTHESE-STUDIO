@@ -1,3 +1,4 @@
+import { useFontReady } from '@/hooks/useFontReady';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -12,8 +13,11 @@ const initialPath =
   'M117 377.8C83.4 361.533 55.5333 337 33.4 304.2C11.5333 271.4 0.600001 233 0.600001 189C0.600001 145 11.5333 106.6 33.4 73.8C55.5333 41 83.4 16.4667 117 0.199994L135.8 33C107.533 47.9333 84.7333 68.8667 67.4 95.8C50.0667 122.467 41.4 153.533 41.4 189C41.4 224.467 50.0667 255.667 67.4 282.6C84.7333 309.267 107.533 330.067 135.8 345L117 377.8Z';
 const transformedPath = 'M0 378V0H40V378H0Z';
 
+export const timeToLoad = 6;
+
 const ScreenLoader = () => {
   const isScreenLoader = useIsScreenLoader();
+  const isFontReady = useFontReady();
   const screenLoaderRef = useRef(null);
   const mainTextRef = useRef(null);
   const textContainerRef = useRef(null);
@@ -36,9 +40,7 @@ const ScreenLoader = () => {
 
   useGSAP(
     () => {
-      // if (!parantheseSVGLeftRef.current || !parantheseSVGRightRef.current) {
-      //   return;
-      // }
+      if (!isFontReady) return;
 
       const tl = gsap.timeline();
       const split = SplitText.create(mainTextRef.current, {
@@ -103,31 +105,37 @@ const ScreenLoader = () => {
       );
 
       tl.to(
-        [transitionDivRefs.left.current, transitionDivRefs.right.current],
-        {
-          display: 'block',
-          scaleY: 50,
-          duration: 1,
-          ease: 'power2.inOut',
-        },
-        '>0.1',
-      );
-
-      tl.to(
         [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
         {
-          display: 'none',
-          opacity: 0,
-          duration: 0,
+          x: (i) => ['-15%', '15%'][i],
+          duration: 0.8,
+          ease: 'power2.inOut',
         },
-        '<0.1',
+        'tranformParanthese',
       );
 
       tl.to([transitionDivRefs.left.current, transitionDivRefs.right.current], {
-        scaleX: 100,
+        display: 'block',
+        scaleY: 50,
         duration: 1,
         ease: 'power2.inOut',
       });
+
+      tl.set([parantheseRefs.left.svg.current, parantheseRefs.right.svg.current], {
+        display: 'none',
+        opacity: 0,
+        duration: 0,
+      });
+
+      tl.to(
+        [transitionDivRefs.left.current, transitionDivRefs.right.current],
+        {
+          scaleX: 100,
+          duration: 1,
+          ease: 'power2.inOut',
+        },
+        '<-0.5',
+      );
 
       tl.set(backgroundRef.current, {
         display: 'none',
@@ -141,12 +149,12 @@ const ScreenLoader = () => {
         ease: 'power2.inOut',
       });
 
-      tl.to(screenLoaderRef.current, {
+      tl.set(screenLoaderRef.current, {
         display: 'none',
         duration: 0,
       });
     },
-    { dependencies: [isScreenLoader] },
+    { dependencies: [isScreenLoader, isFontReady] },
   );
 
   return (
@@ -170,7 +178,7 @@ const ScreenLoader = () => {
         <div className="fixed top-1/2 left-1/2 z-1 -translate-1/2">
           <div
             ref={transitionDivRefs.left}
-            className="svg-as-h1 hidden w-2 origin-right bg-black will-change-transform md:w-4"
+            className="svg-as-h1 hidden aspect-[8.41/79.5] origin-right bg-black will-change-transform"
           ></div>
         </div>
 
@@ -185,7 +193,7 @@ const ScreenLoader = () => {
         <div className="fixed top-1/2 left-1/2 z-1 -translate-1/2">
           <div
             ref={transitionDivRefs.right}
-            className="svg-as-h1 hidden w-2 origin-left bg-black will-change-transform md:w-4"
+            className="svg-as-h1 hidden aspect-[8.41/79.5] origin-left bg-black will-change-transform"
           ></div>
         </div>
 

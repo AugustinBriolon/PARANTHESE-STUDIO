@@ -1,13 +1,16 @@
+import { useFontReady } from '@/hooks/useFontReady';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
-import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
+import { useEffect, useRef, useState } from 'react';
 import Button from '../ui/Button';
+import { timeToLoad } from './ScreenLoader';
 gsap.registerPlugin(SplitText);
 
 export default function LastProject() {
   const isScreenLoader = useIsScreenLoader();
+  const isFontReady = useFontReady();
   const videoContainerRef = useRef(null);
   const textRef = useRef(null);
   const projectTitleRef = useRef(null);
@@ -27,14 +30,14 @@ export default function LastProject() {
     timeline.to(projectTitleRef.current, {
       y: 0,
       duration: 0.8,
-      ease: 'power2.out',
+      ease: 'power2.inOut',
     });
     timeline.to(
       projectButtonRef.current,
       {
         y: 0,
         duration: 0.8,
-        ease: 'power2.out',
+        ease: 'power2.inOut',
       },
       '<+0.2',
     );
@@ -101,8 +104,8 @@ export default function LastProject() {
       tl.current?.to(videoContainerRef.current, {
         scale: 5,
         borderRadius: '3px',
-        duration: 1,
-        ease: 'power2.inOut',
+        duration: 1.2,
+        ease: 'power2.out',
       });
       openProjectInfoAnimation(tl.current!);
     });
@@ -111,32 +114,41 @@ export default function LastProject() {
         width: 'calc(100% - 50px)',
         borderRadius: '16px',
         duration: 1,
-        ease: 'power2.inOut',
+        ease: 'power2.out',
       });
       openProjectInfoAnimation(tl.current!);
     });
   };
 
-  useGSAP(() => {
-    gsap.set(projectTitleRef.current, { y: 50 });
-    gsap.set(projectButtonRef.current, { y: 50 });
+  useGSAP(
+    () => {
+      if (!isFontReady) return;
 
-    const tl = gsap.timeline();
-    tl.from(videoContainerRef.current, {
-      delay: isScreenLoader ? 6.5 : 0,
-      scale: 0,
-      duration: 1,
-      ease: 'power2.inOut',
-    });
-    const split = SplitText.create(textRef.current, { type: 'chars' });
-    tl.from(split.chars, {
-      opacity: 0,
-      y: 20,
-      stagger: 0.02,
-      duration: 0.8,
-      ease: 'power2.out',
-    });
-  }, []);
+      gsap.set(projectTitleRef.current, { y: 50 });
+      gsap.set(projectButtonRef.current, { y: 50 });
+
+      const tl = gsap.timeline();
+      tl.from(videoContainerRef.current, {
+        delay: isScreenLoader ? timeToLoad : 0,
+        scale: 0,
+        duration: 1.5,
+        ease: 'power2.out',
+      });
+      const split = SplitText.create(textRef.current, { type: 'chars' });
+      tl.from(
+        split.chars,
+        {
+          opacity: 0,
+          y: 20,
+          stagger: 0.02,
+          duration: 0.8,
+          ease: 'power2.out',
+        },
+        '<0.8',
+      );
+    },
+    { dependencies: [isFontReady] },
+  );
 
   useEffect(() => {
     if (isPlaying) setIsHovered(true);

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { useEffect, useRef, useState } from 'react';
+import { timeToLoad } from '../layout/ScreenLoader';
 
 export default function Cursor() {
   const circleRef = useRef<HTMLDivElement>(null);
@@ -18,18 +19,14 @@ export default function Cursor() {
 
   useGSAP(() => {
     if (isMobile) return;
-    gsap.from(circleRef.current, {
-      scale: 0,
-      duration: 0.5,
-      delay: isScreenLoader ? 6.5 : 0,
-      ease: 'power2.out',
-    });
+    gsap.set(circleRef.current, { scale: 0, delay: isScreenLoader ? timeToLoad : 0 });
     const handleMouseMove = (e: MouseEvent) => {
       const x = e.clientX - CIRCLE_SIZE / 2;
       const y = e.clientY - CIRCLE_SIZE / 2;
       gsap.to(circleRef.current, {
         x,
         y,
+        scale: 1,
         duration: 0.6,
         ease: 'power2.out',
       });

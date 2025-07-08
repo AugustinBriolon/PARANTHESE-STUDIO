@@ -1,8 +1,8 @@
-import React from 'react';
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
-import { useRef } from 'react';
 import gsap from 'gsap';
+import React, { useRef } from 'react';
+import { timeToLoad } from '../layout/ScreenLoader';
 
 const AnimatedWord = ({
   children,
@@ -17,11 +17,11 @@ const AnimatedWord = ({
 
   useGSAP(() => {
     gsap.from(spanRef.current, {
-      delay: isScreenLoader ? 6.5 + delay : delay,
-      // delay: delay,
+      delay: isScreenLoader ? timeToLoad + delay : delay,
       y: 100,
-      duration: 1.8,
-      ease: 'power2.inOut',
+      scaleY: 0.5,
+      duration: 1.5,
+      ease: 'power2.out',
     });
   });
 

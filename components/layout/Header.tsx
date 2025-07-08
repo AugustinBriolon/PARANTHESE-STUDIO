@@ -1,29 +1,31 @@
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import Image from 'next/image';
 import { useRef } from 'react';
-import gsap from 'gsap';
+import { timeToLoad } from './ScreenLoader';
 
 export default function Header() {
   const isScreenLoader = useIsScreenLoader();
   const logoRef = useRef(null);
 
   useGSAP(() => {
-    gsap.timeline().from(logoRef.current, {
-      delay: isScreenLoader ? 6.5 : 0,
-      opacity: 0,
-      y: -50,
-      duration: 1.8,
+    gsap.from(logoRef.current, {
+      delay: isScreenLoader ? timeToLoad : 0,
+      filter: 'blur(10px)',
+      scaleY: 0.8,
+      y: -150,
+      duration: 1.5,
       ease: 'power2.out',
     });
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="min-h-fit w-full">
       <Image
         ref={logoRef}
         alt="PARANTHESE STUDIO logo"
-        className="mx-auto max-h-60 w-full will-change-transform select-none"
+        className="mx-auto max-h-60 w-full origin-top will-change-transform select-none"
         draggable={false}
         height={100}
         src="/images/logo.svg"
