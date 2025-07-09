@@ -14,7 +14,7 @@ export default function Header() {
       delay: isScreenLoader ? timeToLoad : 0,
       filter: 'blur(10px)',
       scaleY: 0.8,
-      y: -150,
+      yPercent: -150,
       duration: 1.5,
       ease: 'power2.out',
     });
