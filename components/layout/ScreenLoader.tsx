@@ -48,29 +48,49 @@ const ScreenLoader = () => {
 
       gsap
         .timeline()
-        .from(parantheseRefs.left.svg.current, {
-          delay: 0.5,
-          opacity: 0,
-          y: 50,
-          duration: 0.5,
-          ease: 'power4.out',
-        })
-        .from(
-          split.chars,
+        .fromTo(
+          parantheseRefs.left.svg.current,
           {
-            stagger: 0.02,
             opacity: 0,
-            y: 100,
-            duration: 0.8,
+            y: 50,
+          },
+          {
+            delay: 0.5,
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
             ease: 'power4.out',
+          },
+        )
+        .set(
+          mainTextRef.current,
+          {
+            opacity: 1,
           },
           '-=0.5',
         )
-        .from(
+        .fromTo(
+          split.chars,
+          {
+            y: 100,
+          },
+          {
+            y: 0,
+            stagger: 0.02,
+            duration: 0.8,
+            ease: 'power4.out',
+          },
+          '<',
+        )
+        .fromTo(
           parantheseRefs.right.svg.current,
           {
             opacity: 0,
             y: 50,
+          },
+          {
+            opacity: 1,
+            y: 0,
             duration: 0.5,
             ease: 'power4.out',
           },
@@ -149,7 +169,7 @@ const ScreenLoader = () => {
       <div className="relative flex items-center justify-center">
         <svg
           ref={parantheseRefs.left.svg}
-          className="svg-as-h1 absolute left-0 h-20 w-auto origin-right will-change-transform"
+          className="svg-as-h1 absolute left-0 h-20 w-auto origin-right opacity-0 will-change-transform"
           fill="#0E0E0E"
           height="378"
           viewBox="0 0 136 378"
@@ -167,7 +187,7 @@ const ScreenLoader = () => {
         </div>
 
         <div ref={textContainerRef} className="flex justify-center overflow-hidden">
-          <h1 ref={mainTextRef} className="text-center whitespace-nowrap">
+          <h1 ref={mainTextRef} className="text-center whitespace-nowrap opacity-0">
             <span className="w-4 md:w-10"></span>
             Paranthese Studio
             <span className="w-4 md:w-10"></span>
@@ -183,7 +203,7 @@ const ScreenLoader = () => {
 
         <svg
           ref={parantheseRefs.right.svg}
-          className="svg-as-h1 absolute right-0 h-20 w-auto rotate-180 will-change-transform"
+          className="svg-as-h1 absolute right-0 h-20 w-auto rotate-180 opacity-0 will-change-transform"
           fill="#0E0E0E"
           height="378"
           viewBox="0 0 136 378"
