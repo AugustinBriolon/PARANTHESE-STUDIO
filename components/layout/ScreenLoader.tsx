@@ -53,7 +53,7 @@ const ScreenLoader = () => {
           opacity: 0,
           y: 50,
           duration: 0.5,
-          ease: 'power2.out',
+          ease: 'power4.out',
         })
         .from(
           split.chars,
@@ -72,7 +72,7 @@ const ScreenLoader = () => {
             opacity: 0,
             y: 50,
             duration: 0.5,
-            ease: 'power2.out',
+            ease: 'power4.out',
           },
           '-=0.6',
         )
