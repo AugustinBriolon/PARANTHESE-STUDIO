@@ -13,7 +13,7 @@ const initialPath =
   'M117 377.8C83.4 361.533 55.5333 337 33.4 304.2C11.5333 271.4 0.600001 233 0.600001 189C0.600001 145 11.5333 106.6 33.4 73.8C55.5333 41 83.4 16.4667 117 0.199994L135.8 33C107.533 47.9333 84.7333 68.8667 67.4 95.8C50.0667 122.467 41.4 153.533 41.4 189C41.4 224.467 50.0667 255.667 67.4 282.6C84.7333 309.267 107.533 330.067 135.8 345L117 377.8Z';
 const transformedPath = 'M0 378V0H40V378H0Z';
 
-export const timeToLoad = 6;
+export const timeToLoad = 4.5;
 
 const ScreenLoader = () => {
   const isScreenLoader = useIsScreenLoader();
@@ -42,117 +42,121 @@ const ScreenLoader = () => {
     () => {
       if (!isFontReady) return;
 
-      const tl = gsap.timeline();
       const split = SplitText.create(mainTextRef.current, {
         type: 'chars',
       });
 
-      tl.from(
-        parantheseRefs.left.svg.current,
-        {
-          delay: 0.5,
-          opacity: 0,
-          y: 100,
+      gsap
+        .timeline()
+        .fromTo(
+          parantheseRefs.left.svg.current,
+          {
+            opacity: 0,
+            y: 50,
+          },
+          {
+            delay: 0.5,
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power4.out',
+          },
+        )
+        .set(
+          mainTextRef.current,
+          {
+            opacity: 1,
+          },
+          '-=0.5',
+        )
+        .fromTo(
+          split.chars,
+          {
+            y: 100,
+          },
+          {
+            y: 0,
+            stagger: 0.02,
+            duration: 0.8,
+            ease: 'power4.out',
+          },
+          '<',
+        )
+        .fromTo(
+          parantheseRefs.right.svg.current,
+          {
+            opacity: 0,
+            y: 50,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power4.out',
+          },
+          '-=0.6',
+        )
+        .addLabel('transformParanthese')
+        .to(
+          textContainerRef.current,
+          {
+            width: 0,
+            duration: 0.8,
+            ease: 'power2.inOut',
+          },
+          'transformParanthese',
+        )
+        .to(
+          [parantheseRefs.left.path.current, parantheseRefs.right.path.current],
+          {
+            morphSVG: transformedPath,
+            duration: 0.8,
+            ease: 'power2.inOut',
+          },
+          'transformParanthese',
+        )
+        .to(
+          [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
+          {
+            x: (i) => ['-15%', '15%'][i],
+            duration: 0.8,
+          },
+          'transformParanthese',
+        )
+        .to(
+          [transitionDivRefs.left.current, transitionDivRefs.right.current],
+          {
+            display: 'block',
+            scaleY: 50,
+            duration: 1,
+            ease: 'power2.inOut',
+          },
+          '>-0.03',
+        )
+        .set([parantheseRefs.left.svg.current, parantheseRefs.right.svg.current], {
+          display: 'none',
+        })
+        .to(
+          [transitionDivRefs.left.current, transitionDivRefs.right.current],
+          {
+            scaleX: 100,
+            duration: 1,
+            ease: 'power2.inOut',
+          },
+          '>-0.5',
+        )
+        .set(backgroundRef.current, {
+          display: 'none',
+        })
+        .to([transitionDivRefs.left.current, transitionDivRefs.right.current], {
+          x: (i) => [-1100, 1100][i],
           duration: 1,
           ease: 'power2.inOut',
-        },
-        '<',
-      );
-
-      tl.from(
-        split.chars,
-        {
-          stagger: 0.05,
-          opacity: 0,
-          y: 100,
-          duration: 1,
-          ease: 'power2.inOut',
-        },
-        '-=0.8',
-      );
-
-      tl.from(
-        parantheseRefs.right.svg.current,
-        {
-          opacity: 0,
-          y: 100,
-          duration: 1,
-          ease: 'power2.inOut',
-        },
-        '-=0.8',
-      );
-
-      tl.addLabel('tranformParanthese');
-
-      tl.to(
-        textContainerRef.current,
-        {
-          width: 0,
-          duration: 1,
-          ease: 'power2.inOut',
-        },
-        'tranformParanthese',
-      );
-
-      tl.to(
-        [parantheseRefs.left.path.current, parantheseRefs.right.path.current],
-        {
-          morphSVG: transformedPath,
-          duration: 0.8,
-          ease: 'power2.inOut',
-        },
-        'tranformParanthese',
-      );
-
-      tl.to(
-        [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
-        {
-          x: (i) => ['-15%', '15%'][i],
-          duration: 0.8,
-          ease: 'power2.inOut',
-        },
-        'tranformParanthese',
-      );
-
-      tl.to([transitionDivRefs.left.current, transitionDivRefs.right.current], {
-        display: 'block',
-        scaleY: 50,
-        duration: 1,
-        ease: 'power2.inOut',
-      });
-
-      tl.set([parantheseRefs.left.svg.current, parantheseRefs.right.svg.current], {
-        display: 'none',
-        opacity: 0,
-        duration: 0,
-      });
-
-      tl.to(
-        [transitionDivRefs.left.current, transitionDivRefs.right.current],
-        {
-          scaleX: 100,
-          duration: 1,
-          ease: 'power2.inOut',
-        },
-        '<-0.5',
-      );
-
-      tl.set(backgroundRef.current, {
-        display: 'none',
-        opacity: 0,
-        duration: 0,
-      });
-
-      tl.to([transitionDivRefs.left.current, transitionDivRefs.right.current], {
-        x: (i) => [-1100, 1100][i],
-        duration: 1,
-        ease: 'power2.inOut',
-      });
-
-      tl.set(screenLoaderRef.current, {
-        display: 'none',
-        duration: 0,
-      });
+        })
+        .set(screenLoaderRef.current, {
+          display: 'none',
+          duration: 0,
+        });
     },
     { dependencies: [isScreenLoader, isFontReady] },
   );
@@ -165,7 +169,7 @@ const ScreenLoader = () => {
       <div className="relative flex items-center justify-center">
         <svg
           ref={parantheseRefs.left.svg}
-          className="svg-as-h1 absolute left-0 h-20 w-auto origin-right will-change-transform"
+          className="svg-as-h1 absolute left-0 h-20 w-auto origin-right opacity-0 will-change-transform"
           fill="#0E0E0E"
           height="378"
           viewBox="0 0 136 378"
@@ -178,12 +182,12 @@ const ScreenLoader = () => {
         <div className="fixed top-1/2 left-1/2 z-1 -translate-1/2">
           <div
             ref={transitionDivRefs.left}
-            className="svg-as-h1 hidden aspect-[8.41/79.5] origin-right bg-black will-change-transform"
+            className="svg-as-h1 hidden w-1 origin-right bg-black will-change-transform md:w-2 lg:w-3"
           ></div>
         </div>
 
         <div ref={textContainerRef} className="flex justify-center overflow-hidden">
-          <h1 ref={mainTextRef} className="text-center whitespace-nowrap">
+          <h1 ref={mainTextRef} className="text-center whitespace-nowrap opacity-0">
             <span className="w-4 md:w-10"></span>
             Paranthese Studio
             <span className="w-4 md:w-10"></span>
@@ -193,13 +197,13 @@ const ScreenLoader = () => {
         <div className="fixed top-1/2 left-1/2 z-1 -translate-1/2">
           <div
             ref={transitionDivRefs.right}
-            className="svg-as-h1 hidden aspect-[8.41/79.5] origin-left bg-black will-change-transform"
+            className="svg-as-h1 hidden w-1 origin-left bg-black will-change-transform md:w-2 lg:w-3"
           ></div>
         </div>
 
         <svg
           ref={parantheseRefs.right.svg}
-          className="svg-as-h1 absolute right-0 h-20 w-auto rotate-180 will-change-transform"
+          className="svg-as-h1 absolute right-0 h-20 w-auto rotate-180 opacity-0 will-change-transform"
           fill="#0E0E0E"
           height="378"
           viewBox="0 0 136 378"
