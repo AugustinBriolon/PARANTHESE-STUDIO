@@ -96,7 +96,7 @@ const ScreenLoader = () => {
           },
           '-=0.6',
         )
-        .addLabel('tranformParanthese')
+        .addLabel('transformParanthese')
         .to(
           textContainerRef.current,
           {
@@ -104,7 +104,7 @@ const ScreenLoader = () => {
             duration: 0.8,
             ease: 'power2.inOut',
           },
-          'tranformParanthese',
+          'transformParanthese',
         )
         .to(
           [parantheseRefs.left.path.current, parantheseRefs.right.path.current],
@@ -113,7 +113,7 @@ const ScreenLoader = () => {
             duration: 0.8,
             ease: 'power2.inOut',
           },
-          'tranformParanthese',
+          'transformParanthese',
         )
         .to(
           [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
@@ -121,7 +121,7 @@ const ScreenLoader = () => {
             x: (i) => ['-15%', '15%'][i],
             duration: 0.8,
           },
-          'tranformParanthese',
+          'transformParanthese',
         )
         .to(
           [transitionDivRefs.left.current, transitionDivRefs.right.current],
@@ -143,7 +143,7 @@ const ScreenLoader = () => {
             duration: 1,
             ease: 'power2.inOut',
           },
-          '<-0.5',
+          '>-0.5',
         )
         .set(backgroundRef.current, {
           display: 'none',
