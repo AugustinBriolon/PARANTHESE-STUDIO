@@ -1,5 +1,5 @@
 import Cursor from '@/components/ui/Cursor';
-import SEO from '@/components/ui/SEO';
+import SEO from '@/components/layout/SEO';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
