@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://paranthese.studio',
+  siteUrl: 'https://www.paranthese.studio',
   generateRobotsTxt: true,
   sitemapSize: 5000,
   changefreq: 'monthly',
