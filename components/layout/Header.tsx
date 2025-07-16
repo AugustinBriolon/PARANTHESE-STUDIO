@@ -31,7 +31,7 @@ export default function Header() {
   }, []);
 
   return (
-    <div className="relative min-h-fit w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden">
       <Image
         ref={logoRef}
         alt="PARANTHESE STUDIO logo"
