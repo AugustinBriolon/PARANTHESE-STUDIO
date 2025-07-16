@@ -18,8 +18,8 @@ const AnimatedWord = ({
   useGSAP(() => {
     gsap.from(spanRef.current, {
       delay: isScreenLoader ? timeToLoad + delay : delay,
-      y: 100,
-      scaleY: 0.5,
+      yPercent: 100,
+      scaleY: 0.8,
       duration: 1.5,
       ease: 'power2.out',
     });
@@ -36,12 +36,12 @@ const AnimatedWord = ({
 
 export default function AnimatedTitle() {
   return (
-    <div className="flex h-full items-center justify-start">
+    <div className="flex flex-1 items-center justify-start">
       <div>
-        <AnimatedWord>Creative Studio</AnimatedWord>
-        <AnimatedWord delay={0.2}>Building not just websites</AnimatedWord>
-        <AnimatedWord delay={0.3}>Based in Paris</AnimatedWord>
-        <AnimatedWord delay={0.4}>
+        <AnimatedWord delay={0.2}>Creative Studio</AnimatedWord>
+        <AnimatedWord delay={0.3}>Building not just websites</AnimatedWord>
+        <AnimatedWord delay={0.4}>Based in Paris</AnimatedWord>
+        <AnimatedWord delay={0.5}>
           <a
             className="group relative pb-1 text-xs md:text-lg"
             href="https://august1.dev/"

@@ -127,25 +127,27 @@ export default function LastProject() {
       gsap.set(projectTitleRef.current, { y: 50 });
       gsap.set(projectButtonRef.current, { y: 50 });
 
-      const tl = gsap.timeline();
-      tl.from(videoContainerRef.current, {
-        delay: isScreenLoader ? timeToLoad : 0,
-        scale: 0,
-        duration: 1.5,
-        ease: 'power2.out',
-      });
       const split = SplitText.create(textRef.current, { type: 'chars' });
-      tl.from(
-        split.chars,
-        {
-          opacity: 0,
-          y: 20,
-          stagger: 0.02,
-          duration: 0.8,
+
+      gsap
+        .timeline()
+        .from(videoContainerRef.current, {
+          delay: isScreenLoader ? timeToLoad + 0.5 : 0.5,
+          scale: 0,
+          duration: 1,
           ease: 'power2.out',
-        },
-        '<0.8',
-      );
+        })
+        .from(
+          split.chars,
+          {
+            opacity: 0,
+            y: 10,
+            stagger: 0.02,
+            duration: 0.8,
+            ease: 'power2.out',
+          },
+          '<0.8',
+        );
     },
     { dependencies: [isFontReady] },
   );

@@ -16,9 +16,9 @@ export default function Contact() {
     const tl = gsap.timeline();
 
     tl.from(contactButtonRef.current, {
-      delay: isScreenLoader ? timeToLoad : 0,
+      delay: isScreenLoader ? timeToLoad + 0.5 : 0.5,
       scale: 0,
-      duration: 1,
+      duration: 0.6,
       ease: 'power2.inOut',
     });
     tl.from(
@@ -28,7 +28,7 @@ export default function Contact() {
         duration: 0.6,
         ease: 'power2.inOut',
       },
-      '<0.3',
+      '<0.1',
     );
     tl.from(
       timeRef.current,
