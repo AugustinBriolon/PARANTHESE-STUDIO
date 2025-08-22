@@ -38,7 +38,7 @@ export default function Header() {
         className="mx-auto max-h-60 w-full origin-top will-change-transform select-none"
         draggable={false}
         height={100}
-        src="/images/logo.svg"
+        src="/images/logo2.svg"
         width={100}
         priority
       />
