@@ -1,6 +1,6 @@
 import Header from '@/components/layout/Header';
 import LastProject from '@/components/layout/LastProject';
-import AnimatedTitle from '@/components/ui/AnimatedTitle';
+import AnimatedTitle from '@/components/layout/AnimatedTitle';
 import Contact from '@/components/layout/Contact';
 
 export default function Home() {
