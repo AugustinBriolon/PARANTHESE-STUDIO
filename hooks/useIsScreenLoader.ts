@@ -1,3 +1,3 @@
 export const useIsScreenLoader = () => {
-  return true;
+  return false;
 };

@@ -13,7 +13,7 @@ const initialPath =
   'M117 377.8C83.4 361.533 55.5333 337 33.4 304.2C11.5333 271.4 0.600001 233 0.600001 189C0.600001 145 11.5333 106.6 33.4 73.8C55.5333 41 83.4 16.4667 117 0.199994L135.8 33C107.533 47.9333 84.7333 68.8667 67.4 95.8C50.0667 122.467 41.4 153.533 41.4 189C41.4 224.467 50.0667 255.667 67.4 282.6C84.7333 309.267 107.533 330.067 135.8 345L117 377.8Z';
 const transformedPath = 'M0 378V0H40V378H0Z';
 
-export const timeToLoad = 4.5;
+export const timeToLoad = 3.9;
 
 const ScreenLoader = () => {
   const isScreenLoader = useIsScreenLoader();
@@ -46,55 +46,33 @@ const ScreenLoader = () => {
         type: 'chars',
       });
 
+      gsap.set(
+        [mainTextRef.current, parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
+        {
+          opacity: 1,
+        },
+      );
+
       gsap
         .timeline()
-        .fromTo(
-          parantheseRefs.left.svg.current,
+        .from(
+          [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
           {
-            opacity: 0,
-            y: 50,
-          },
-          {
-            delay: 0.5,
-            opacity: 1,
-            y: 0,
+            x: (i) => ['150%', '-150%'][i],
             duration: 0.5,
-            ease: 'power4.out',
+            ease: 'power2.inOut',
           },
+          '>',
         )
-        .set(
-          mainTextRef.current,
-          {
-            opacity: 1,
-          },
-          '-=0.5',
-        )
-        .fromTo(
+        .from(
           split.chars,
           {
-            y: 100,
-          },
-          {
-            y: 0,
+            yPercent: 100,
             stagger: 0.02,
             duration: 0.8,
-            ease: 'power4.out',
+            ease: 'power2.out',
           },
-          '<',
-        )
-        .fromTo(
-          parantheseRefs.right.svg.current,
-          {
-            opacity: 0,
-            y: 50,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: 'power4.out',
-          },
-          '-=0.6',
+          '>-0.2',
         )
         .addLabel('transformParanthese')
         .to(
@@ -110,7 +88,7 @@ const ScreenLoader = () => {
           [parantheseRefs.left.path.current, parantheseRefs.right.path.current],
           {
             morphSVG: transformedPath,
-            duration: 0.8,
+            duration: 0.5,
             ease: 'power2.inOut',
           },
           'transformParanthese',
@@ -119,7 +97,8 @@ const ScreenLoader = () => {
           [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
           {
             x: (i) => ['-15%', '15%'][i],
-            duration: 0.8,
+            duration: 0.5,
+            ease: 'power2.inOut',
           },
           'transformParanthese',
         )
@@ -128,31 +107,39 @@ const ScreenLoader = () => {
           {
             display: 'block',
             scaleY: 50,
-            duration: 1,
+            duration: 0.8,
             ease: 'power2.inOut',
+            onComplete: () => {
+              gsap.set([parantheseRefs.left.svg.current, parantheseRefs.right.svg.current], {
+                display: 'none',
+              });
+            },
           },
-          '>-0.03',
+          '>+0.2',
         )
-        .set([parantheseRefs.left.svg.current, parantheseRefs.right.svg.current], {
-          display: 'none',
-        })
         .to(
           [transitionDivRefs.left.current, transitionDivRefs.right.current],
           {
             scaleX: 100,
             duration: 1,
             ease: 'power2.inOut',
+            onComplete: () => {
+              gsap.set(backgroundRef.current, {
+                display: 'none',
+              });
+            },
           },
-          '>-0.5',
+          '>-0.4',
         )
-        .set(backgroundRef.current, {
-          display: 'none',
-        })
-        .to([transitionDivRefs.left.current, transitionDivRefs.right.current], {
-          x: (i) => [-1100, 1100][i],
-          duration: 1,
-          ease: 'power2.inOut',
-        })
+        .to(
+          [transitionDivRefs.left.current, transitionDivRefs.right.current],
+          {
+            x: (i) => [-1100, 1100][i],
+            duration: 1.2,
+            ease: 'power2.inOut',
+          },
+          '>-0.1',
+        )
         .set(screenLoaderRef.current, {
           display: 'none',
           duration: 0,
@@ -189,7 +176,7 @@ const ScreenLoader = () => {
         <div ref={textContainerRef} className="flex justify-center overflow-hidden">
           <h1 ref={mainTextRef} className="text-center whitespace-nowrap opacity-0">
             <span className="w-4 md:w-10"></span>
-            Paranthese Studio
+            PARANTHESE STUDIO
             <span className="w-4 md:w-10"></span>
           </h1>
         </div>
