@@ -181,6 +181,7 @@ export default function LastProject() {
             className="will-change-transform"
             href="https://les-reveries-orangerie.vercel.app/"
             variant="white"
+            external
           >
             EXPLORE
           </Button>

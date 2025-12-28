@@ -57,6 +57,7 @@ export default function Contact() {
         ref={contactButtonRef}
         className="origin-bottom-left will-change-transform"
         href="mailto:hello@paranthese.studio"
+        external
       >
         CONTACT
       </Button>

@@ -1,43 +1,48 @@
 import React, { forwardRef, useRef } from 'react';
 import gsap from 'gsap';
+import { useRouter } from 'next/navigation';
 
 interface ButtonProps {
   children: React.ReactNode;
   variant?: 'black' | 'white';
-  className?: string;
   href?: string;
+  external?: boolean;
+  className?: string;
 }
 
 const Button = forwardRef<HTMLDivElement, ButtonProps>(
-  ({ children, variant = 'black', className = '', href }, ref) => {
+  ({ children, variant = 'black', className = '', href, external = false }, ref) => {
+    const router = useRouter();
+    const textRef = useRef<HTMLSpanElement>(null);
+    const hoverTextRef = useRef<HTMLSpanElement>(null);
+
     const baseClasses = 'cursor-pointer rounded-full px-4 py-1.5 sm:px-6 sm:py-1.5 min-h-[2.5em]';
     const variantClasses =
       variant === 'white' ? 'bg-white border border-black text-black' : 'bg-black text-white';
 
-    const textRef = useRef<HTMLSpanElement>(null);
-    const hoverTextRef = useRef<HTMLSpanElement>(null);
-
     const handleMouseEnter = () => {
       gsap.set(textRef.current, { y: 0, opacity: 1 });
       gsap.set(hoverTextRef.current, { y: 10, opacity: 0 });
+
       if (!children) return;
-      const tl = gsap.timeline();
-      tl.to(textRef.current, {
-        y: -10,
-        opacity: 0,
-        duration: 0.4,
-        ease: 'power2.out',
-      });
-      tl.to(
-        hoverTextRef.current,
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.2,
+      gsap
+        .timeline()
+        .to(textRef.current, {
+          y: -10,
+          opacity: 0,
+          duration: 0.4,
           ease: 'power2.out',
-        },
-        '<0.2',
-      );
+        })
+        .to(
+          hoverTextRef.current,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.2,
+            ease: 'power2.out',
+          },
+          '<0.2',
+        );
     };
 
     return (
@@ -47,7 +52,11 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         onMouseEnter={handleMouseEnter}
         onClick={() => {
           if (href) {
-            window.open(href, '_blank');
+            if (external) {
+              window.open(href, '_blank');
+            } else {
+              router.push(href);
+            }
           }
         }}
       >

@@ -16,11 +16,12 @@ const transformedPath = 'M0 378V0H40V378H0Z';
 export const timeToLoad = 3.9;
 
 const ScreenLoader = () => {
-  const isScreenLoader = useIsScreenLoader();
-  const isFontReady = useFontReady();
   const screenLoaderRef = useRef(null);
   const mainTextRef = useRef(null);
   const textContainerRef = useRef(null);
+  const { contextSafe } = useGSAP();
+  const isScreenLoader = useIsScreenLoader();
+  const isFontReady = useFontReady();
   const parantheseRefs = {
     left: {
       svg: useRef(null),
@@ -38,121 +39,119 @@ const ScreenLoader = () => {
 
   const backgroundRef = useRef(null);
 
-  useGSAP(
-    () => {
-      if (!isFontReady) return;
+  const revealAnimation = contextSafe(() => {
+    if (!isFontReady || !isScreenLoader) return;
 
-      const split = SplitText.create(mainTextRef.current, {
-        type: 'chars',
-      });
+    const split = SplitText.create(mainTextRef.current, {
+      type: 'chars',
+    });
 
-      gsap.set(
-        [mainTextRef.current, parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
+    gsap.set(
+      [mainTextRef.current, parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
+      {
+        opacity: 1,
+      },
+    );
+
+    gsap
+      .timeline()
+      .from(
+        [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
         {
-          opacity: 1,
+          x: (i) => ['150%', '-150%'][i],
+          duration: 0.5,
+          ease: 'power2.inOut',
         },
-      );
+        '>',
+      )
+      .from(
+        split.chars,
+        {
+          yPercent: 100,
+          stagger: 0.02,
+          duration: 0.8,
+          ease: 'power2.out',
+        },
+        '>-0.2',
+      )
+      .addLabel('transformParanthese')
+      .to(
+        textContainerRef.current,
+        {
+          width: 0,
+          duration: 0.8,
+          ease: 'power2.inOut',
+        },
+        'transformParanthese',
+      )
+      .to(
+        [parantheseRefs.left.path.current, parantheseRefs.right.path.current],
+        {
+          morphSVG: transformedPath,
+          duration: 0.5,
+          ease: 'power2.inOut',
+        },
+        'transformParanthese',
+      )
+      .to(
+        [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
+        {
+          x: (i) => ['-15%', '15%'][i],
+          duration: 0.5,
+          ease: 'power2.inOut',
+        },
+        'transformParanthese',
+      )
+      .to(
+        [transitionDivRefs.left.current, transitionDivRefs.right.current],
+        {
+          display: 'block',
+          scaleY: 50,
+          duration: 0.8,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            gsap.set([parantheseRefs.left.svg.current, parantheseRefs.right.svg.current], {
+              display: 'none',
+            });
+          },
+        },
+        '>+0.2',
+      )
+      .to(
+        [transitionDivRefs.left.current, transitionDivRefs.right.current],
+        {
+          scaleX: 100,
+          duration: 1,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            gsap.set(backgroundRef.current, {
+              display: 'none',
+            });
+          },
+        },
+        '>-0.4',
+      )
+      .to(
+        [transitionDivRefs.left.current, transitionDivRefs.right.current],
+        {
+          x: (i) => [-1100, 1100][i],
+          duration: 1.2,
+          ease: 'power2.inOut',
+        },
+        '>-0.1',
+      )
+      .set(screenLoaderRef.current, {
+        display: 'none',
+        duration: 0,
+      });
+  });
 
-      gsap
-        .timeline()
-        .from(
-          [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
-          {
-            x: (i) => ['150%', '-150%'][i],
-            duration: 0.5,
-            ease: 'power2.inOut',
-          },
-          '>',
-        )
-        .from(
-          split.chars,
-          {
-            yPercent: 100,
-            stagger: 0.02,
-            duration: 0.8,
-            ease: 'power2.out',
-          },
-          '>-0.2',
-        )
-        .addLabel('transformParanthese')
-        .to(
-          textContainerRef.current,
-          {
-            width: 0,
-            duration: 0.8,
-            ease: 'power2.inOut',
-          },
-          'transformParanthese',
-        )
-        .to(
-          [parantheseRefs.left.path.current, parantheseRefs.right.path.current],
-          {
-            morphSVG: transformedPath,
-            duration: 0.5,
-            ease: 'power2.inOut',
-          },
-          'transformParanthese',
-        )
-        .to(
-          [parantheseRefs.left.svg.current, parantheseRefs.right.svg.current],
-          {
-            x: (i) => ['-15%', '15%'][i],
-            duration: 0.5,
-            ease: 'power2.inOut',
-          },
-          'transformParanthese',
-        )
-        .to(
-          [transitionDivRefs.left.current, transitionDivRefs.right.current],
-          {
-            display: 'block',
-            scaleY: 50,
-            duration: 0.8,
-            ease: 'power2.inOut',
-            onComplete: () => {
-              gsap.set([parantheseRefs.left.svg.current, parantheseRefs.right.svg.current], {
-                display: 'none',
-              });
-            },
-          },
-          '>+0.2',
-        )
-        .to(
-          [transitionDivRefs.left.current, transitionDivRefs.right.current],
-          {
-            scaleX: 100,
-            duration: 1,
-            ease: 'power2.inOut',
-            onComplete: () => {
-              gsap.set(backgroundRef.current, {
-                display: 'none',
-              });
-            },
-          },
-          '>-0.4',
-        )
-        .to(
-          [transitionDivRefs.left.current, transitionDivRefs.right.current],
-          {
-            x: (i) => [-1100, 1100][i],
-            duration: 1.2,
-            ease: 'power2.inOut',
-          },
-          '>-0.1',
-        )
-        .set(screenLoaderRef.current, {
-          display: 'none',
-          duration: 0,
-        });
-    },
-    { dependencies: [isScreenLoader, isFontReady] },
-  );
+  useGSAP(() => {
+    revealAnimation();
+  }, [isScreenLoader, isFontReady]);
 
   return (
-    <div
-      ref={screenLoaderRef}
-      className="fixed inset-0 z-[999999] flex items-center justify-center"
-    >
+    <div ref={screenLoaderRef} className="fixed inset-0 z-999999 flex items-center justify-center">
       <div className="relative flex items-center justify-center">
         <svg
           ref={parantheseRefs.left.svg}
@@ -174,7 +173,7 @@ const ScreenLoader = () => {
         </div>
 
         <div ref={textContainerRef} className="flex justify-center overflow-hidden">
-          <h1 ref={mainTextRef} className="text-center whitespace-nowrap opacity-0">
+          <h1 ref={mainTextRef} className="text-center whitespace-nowrap text-black opacity-0">
             <span className="w-4 md:w-10"></span>
             PARANTHESE STUDIO
             <span className="w-4 md:w-10"></span>
