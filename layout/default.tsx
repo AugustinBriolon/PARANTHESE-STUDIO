@@ -1,7 +1,26 @@
-import Cursor from '@/components/ui/Cursor';
-import SEO from '@/components/layout/SEO';
+import Cursor from '@/components/ui/cursor';
+import PerformanceIndicator from '@/components/ui/performance-indicator';
+import SEO from '@/components/ui/SEO';
+import { useEnvironment } from '@/hooks/useEnvironment';
+import { usePerformance } from '@/providers/performance.provider';
+import { gsap } from 'gsap';
+import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
+import { ReactNode, useEffect } from 'react';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+gsap.registerPlugin(ScrollTrigger, SplitText, MorphSVGPlugin);
+
+const Layout = ({ children }: { children: ReactNode }) => {
+  const { isProd } = useEnvironment();
+  const { isLoading } = usePerformance();
+
+  useEffect(() => {
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+  }, [isLoading]);
+
   return (
     <>
       <SEO />
@@ -11,6 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </div>
       </div>
+      {!isProd && <PerformanceIndicator />}
     </>
   );
 };

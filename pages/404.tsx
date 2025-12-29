@@ -1,5 +1,5 @@
+import Button from '@/components/ui/button';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import Button from '@/components/ui/Button';
 
 const CELL_WIDTH = 120;
 const CELL_HEIGHT = 60;
@@ -21,9 +21,13 @@ export default function Error() {
     return () => window.removeEventListener('resize', calculateGrid);
   }, []);
 
-  const handleCellHover = useCallback((index: number) => {
-    setHoveredCells((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
-  }, []);
+  const handleCellHover = useCallback(
+    (index: number) => {
+      setHoveredCells((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
+      if (hoveredCells.size === gridConfig.cols * gridConfig.rows) setHoveredCells(new Set());
+    },
+    [hoveredCells, gridConfig],
+  );
 
   const buttonPosition = useMemo(
     () => ({
@@ -53,7 +57,7 @@ export default function Error() {
   return (
     <div className="relative h-full w-full overflow-hidden">
       <div
-        className="grid h-full w-full"
+        className="grid h-full w-full place-items-center"
         style={{
           gridTemplateColumns: `repeat(${gridConfig.cols}, 1fr)`,
           gridTemplateRows: `repeat(${gridConfig.rows}, 1fr)`,
@@ -67,13 +71,15 @@ export default function Error() {
             return (
               <div
                 key={index}
-                className="flex items-center justify-center"
+                className="px-2"
                 style={{
                   gridColumn: `${buttonPosition.colStart + 1} / span ${BUTTON_SPAN}`,
                   gridRow: `${buttonPosition.rowStart + 1} / span ${BUTTON_SPAN}`,
                 }}
               >
-                <Button href="/">Home</Button>
+                <Button className="w-full" href="/">
+                  Home
+                </Button>
               </div>
             );
           }
@@ -83,8 +89,8 @@ export default function Error() {
           return (
             <div
               key={index}
-              className={`flex items-center justify-center text-black transition-colors ${
-                hoveredCells.has(index) ? 'text-white' : ''
+              className={`text-black transition-all will-change-transform select-none ${
+                hoveredCells.has(index) ? 'scale-95 text-white' : ''
               }`}
               onMouseEnter={() => handleCellHover(index)}
             >

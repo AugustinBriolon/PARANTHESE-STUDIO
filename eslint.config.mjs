@@ -1,31 +1,101 @@
-import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
+import typescriptParser from '@typescript-eslint/parser';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import nextPlugin from '@next/eslint-plugin-next';
+import prettierConfig from 'eslint-config-prettier';
+import prettierPlugin from 'eslint-plugin-prettier';
 
 const eslintConfig = [
   {
-    ignores: ['**/node_modules', '**/.next', '**/.vercel'],
+    ignores: ['**/node_modules', '**/.next', '**/.vercel', './next-env.d.ts'],
   },
-  ...compat.extends(
-    'next/core-web-vitals',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'prettier',
-  ),
+  js.configs.recommended,
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        // React
+        React: 'readonly',
+        JSX: 'readonly',
 
+        // Node.js
+        console: 'readonly',
+        process: 'readonly',
+        __dirname: 'readonly',
+        module: 'readonly',
+        require: 'readonly',
+        NodeJS: 'readonly',
+
+        // Browser globals
+        window: 'readonly',
+        document: 'readonly',
+        navigator: 'readonly',
+        localStorage: 'readonly',
+        sessionStorage: 'readonly',
+        performance: 'readonly',
+
+        // DOM types
+        HTMLElement: 'readonly',
+        HTMLDivElement: 'readonly',
+        HTMLButtonElement: 'readonly',
+        HTMLSpanElement: 'readonly',
+        HTMLUListElement: 'readonly',
+        HTMLVideoElement: 'readonly',
+        HTMLAnchorElement: 'readonly',
+        SVGSVGElement: 'readonly',
+        SVGPathElement: 'readonly',
+        Node: 'readonly',
+        NodeListOf: 'readonly',
+        Element: 'readonly',
+        Event: 'readonly',
+        DOMRect: 'readonly',
+
+        // Browser APIs
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        requestAnimationFrame: 'readonly',
+        cancelAnimationFrame: 'readonly',
+        requestIdleCallback: 'readonly',
+        cancelIdleCallback: 'readonly',
+        DeviceOrientationEvent: 'readonly',
+
+        // Events
+        MouseEvent: 'readonly',
+        TouchEvent: 'readonly',
+        MediaQueryListEvent: 'readonly',
+
+        // Other
+        MutationObserver: 'readonly',
+        PerformanceNavigationTiming: 'readonly',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptPlugin,
+      react: reactPlugin,
+      'react-hooks': reactHooksPlugin,
+      '@next/next': nextPlugin,
+      prettier: prettierPlugin,
+    },
     rules: {
+      ...typescriptPlugin.configs.recommended.rules,
+      ...reactPlugin.configs.recommended.rules,
+      ...reactHooksPlugin.configs.recommended.rules,
+      ...prettierConfig.rules,
+
+      'prettier/prettier': 'warn',
+
       '@typescript-eslint/no-explicit-any': 'warn',
 
       '@typescript-eslint/no-unused-vars': [
@@ -43,7 +113,7 @@ const eslintConfig = [
       'no-console': [
         'warn',
         {
-          allow: ['warn', 'error', 'assert', 'info'],
+          allow: ['warn', 'error', 'assert', 'info', 'table'],
         },
       ],
 
@@ -97,14 +167,28 @@ const eslintConfig = [
         },
       ],
 
-      'eslint/no-extra-boolean-cast': 'off',
       '@next/next/no-img-element': 'off',
       'react-hooks/rules-of-hooks': 'off',
       'react/no-unescaped-entities': 'off',
       'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/purity': 'off',
+      'react-hooks/refs': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/display-name': 'off',
+      'react/prop-types': 'off',
       'prefer-destructuring': 'error',
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+  {
+    files: ['next-env.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
     },
   },
 ];

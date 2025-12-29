@@ -1,10 +1,11 @@
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
 import React, { useRef } from 'react';
-import { timeToLoad } from '../layout/ScreenLoader';
+
 import gsap from 'gsap';
 import SplitText from 'gsap/dist/SplitText';
 import { useFontReady } from '@/hooks/useFontReady';
+import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
 gsap.registerPlugin(SplitText);
 
@@ -29,7 +30,7 @@ export default function AnimatedWord({
     });
 
     gsap.from(split.words, {
-      delay: isScreenLoader ? timeToLoad + delay : delay,
+      delay: isScreenLoader ? TIME_TO_LOAD + delay : delay,
       yPercent: 100,
       scaleY: 0.8,
       stagger: 0.03,

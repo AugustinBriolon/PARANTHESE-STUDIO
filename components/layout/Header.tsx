@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Image from 'next/image';
 import { useRef } from 'react';
-import { timeToLoad } from './ScreenLoader';
+import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
 export default function Header() {
   const isScreenLoader = useIsScreenLoader();
@@ -14,7 +14,7 @@ export default function Header() {
     gsap
       .timeline()
       .from(logoRef.current, {
-        delay: isScreenLoader ? timeToLoad : 0,
+        delay: isScreenLoader ? TIME_TO_LOAD : 0,
         scaleY: 0.8,
         duration: 1.5,
         ease: 'power2.out',

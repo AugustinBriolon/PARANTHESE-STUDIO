@@ -1,4 +1,4 @@
-import AnimatedWord from '../ui/AnimateWord';
+import AnimatedWord from '@/components/shared/animated-word';
 
 export default function AnimatedTitle() {
   return (
@@ -11,6 +11,7 @@ export default function AnimatedTitle() {
           <a
             className="group relative pb-1 text-xs md:text-lg"
             href="https://august1.dev/"
+            rel="noreferrer"
             target="_blank"
           >
             By Augustin Briolon

@@ -1,3 +1,8 @@
+import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
+
 export const useIsScreenLoader = () => {
-  return false;
+  const pathname = usePathname();
+
+  return useMemo(() => pathname === '/', []);
 };

@@ -1,9 +1,9 @@
-import Header from '@/components/layout/Header';
-import LastProject from '@/components/layout/LastProject';
-import AnimatedTitle from '@/components/layout/AnimatedTitle';
-import Contact from '@/components/layout/Contact';
+import Header from '@/components/layout/header';
+import AnimatedTitle from '@/components/layout/animated-title';
+import Contact from '@/components/shared/contact';
+import LastProject from '@/components/layout/last-project';
 
-export default function Home() {
+export default function Page() {
   return (
     <>
       <Header />
