@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { useEffect, useRef, useState } from 'react';
 import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
-export default function Cursor() {
+const Cursor = () => {
   const circleRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const isScreenLoader = useIsScreenLoader();
@@ -56,3 +56,5 @@ export default function Cursor() {
     />
   );
 }
+
+export default Cursor;
