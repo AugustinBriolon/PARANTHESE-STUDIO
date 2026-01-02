@@ -7,8 +7,6 @@ import SplitText from 'gsap/dist/SplitText';
 import { useFontReady } from '@/hooks/useFontReady';
 import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
-gsap.registerPlugin(SplitText);
-
 export default function AnimatedWord({
   children,
   delay = 0,
@@ -41,7 +39,7 @@ export default function AnimatedWord({
 
   return (
     <div className="overflow-hidden">
-      <h2 ref={spanRef} className="inline-block will-change-transform">
+      <h2 ref={spanRef} className="inline-block">
         {children}
       </h2>
     </div>

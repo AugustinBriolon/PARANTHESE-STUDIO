@@ -15,7 +15,7 @@ export default function AnimatedTitle() {
             target="_blank"
           >
             By Augustin Briolon
-            <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 will-change-transform group-hover:scale-x-100"></div>
+            <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 group-hover:scale-x-100"></div>
           </a>
         </AnimatedWord>
         <h2 className="sr-only">PARANTHESE STUDIO</h2>

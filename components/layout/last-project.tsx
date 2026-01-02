@@ -7,8 +7,6 @@ import { useEffect, useRef, useState } from 'react';
 import Button from '../ui/Button';
 import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
-gsap.registerPlugin(SplitText);
-
 export default function LastProject() {
   const isScreenLoader = useIsScreenLoader();
   const isFontReady = useFontReady();
@@ -171,7 +169,7 @@ export default function LastProject() {
         <div className="overflow-hidden">
           <p
             ref={projectTitleRef}
-            className="text-right text-xl font-medium text-white uppercase will-change-transform md:text-4xl"
+            className="text-right text-xl font-medium text-white uppercase md:text-4xl"
           >
             LES RÊVERIES DE L'ORANGERIE
           </p>
@@ -179,7 +177,6 @@ export default function LastProject() {
         <div className="w-auto overflow-hidden">
           <Button
             ref={projectButtonRef}
-            className="will-change-transform"
             href="https://les-reveries-orangerie.vercel.app/"
             variant="white"
             external
@@ -190,7 +187,7 @@ export default function LastProject() {
       </div>
 
       <div className="overflow-hidden">
-        <h3 ref={textRef} className="text-sm font-medium will-change-transform">
+        <h3 ref={textRef} className="text-sm font-medium">
           LAST REALISATION
         </h3>
       </div>

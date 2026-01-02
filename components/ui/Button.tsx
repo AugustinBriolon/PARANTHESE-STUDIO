@@ -1,6 +1,6 @@
-import React, { forwardRef, useRef } from 'react';
 import gsap from 'gsap';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import React, { forwardRef, useRef } from 'react';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -12,7 +12,6 @@ interface ButtonProps {
 
 const Button = forwardRef<HTMLDivElement, ButtonProps>(
   ({ children, variant = 'black', className = '', href, external = false }, ref) => {
-    const router = useRouter();
     const textRef = useRef<HTMLSpanElement>(null);
     const hoverTextRef = useRef<HTMLSpanElement>(null);
 
@@ -45,18 +44,56 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
         );
     };
 
+    if (href) {
+      return (
+        <Link
+          ref={ref as unknown as React.RefObject<HTMLAnchorElement>}
+          className={`group relative inline-block align-middle ${baseClasses} ${variantClasses} ${className}`}
+          href={href}
+          // rel={external ? 'noreferrer' : undefined}
+          // target={external ? '_blank' : undefined}
+          onMouseEnter={handleMouseEnter}
+        >
+          <div
+            className={`absolute top-1/2 left-1/2 -z-10 h-10 w-full -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300 group-hover:scale-105 ${variantClasses}`}
+          ></div>
+          <span
+            aria-hidden="true"
+            className="pointer-events-none invisible block h-0"
+            style={{ position: 'static', height: 0 }}
+          >
+            {children}
+          </span>
+          <span
+            ref={textRef}
+            className={`absolute top-1/2 right-0 left-0 -translate-y-1/2 opacity-100 transition-none ${
+              variant === 'white' ? 'text-black' : 'text-white'
+            } flex items-center justify-center font-medium whitespace-nowrap uppercase`}
+          >
+            {children}
+          </span>
+          {children && (
+            <span
+              ref={hoverTextRef}
+              className={`absolute top-1/2 right-0 left-0 -translate-y-1/2 opacity-0 transition-none ${
+                variant === 'white' ? 'text-black' : 'text-white'
+              } flex items-center justify-center font-medium whitespace-nowrap uppercase`}
+            >
+              {children}
+            </span>
+          )}
+        </Link>
+      );
+    }
+
     return (
       <div
         ref={ref}
         className={`group relative inline-block align-middle ${baseClasses} ${variantClasses} ${className}`}
         onMouseEnter={handleMouseEnter}
         onClick={() => {
-          if (href) {
-            if (external) {
-              window.open(href, '_blank');
-            } else {
-              router.push(href);
-            }
+          if (external) {
+            window.open(href, '_blank');
           }
         }}
       >

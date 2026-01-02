@@ -1,33 +1,28 @@
-import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { usePerformance } from '@/providers/performance.provider';
 import { motion, Variants } from 'framer-motion';
 import { ReactNode } from 'react';
 
 export default function PageTransition({ children }: { children: ReactNode }) {
   const { isLoading } = usePerformance();
-  const isScreenLoader = useIsScreenLoader();
 
-  const firstBlockVariants: Variants = {
+  const circleVariants: Variants = {
     initial: {
-      y: 0,
+      width: 0,
+      height: 0,
     },
-
     enter: {
-      y: '-100%',
-
+      width: '150vmax',
+      height: '150vmax',
       transition: {
-        duration: 0.8,
+        duration: 1,
         ease: [0.72, 0, 0.3, 0.99],
       },
-
-      transitionEnd: { scaleY: 0, y: '0' },
     },
-
     exit: {
-      scaleY: 1,
-
+      width: 0,
+      height: 0,
       transition: {
-        duration: 0.8,
+        duration: 1,
         ease: [0.72, 0, 0.3, 0.99],
       },
     },
@@ -36,7 +31,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const anim = (variants: Variants) => {
     return {
       initial: 'initial',
-      animate: isLoading && !isScreenLoader ? 'initial' : 'enter',
+      animate: isLoading ? 'initial' : 'enter',
       exit: 'exit',
       variants,
     };
@@ -45,9 +40,11 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   return (
     <>
       <motion.div
-        className="bg-red pointer-events-none fixed top-0 left-0 z-800 h-full w-full origin-bottom"
-        {...anim(firstBlockVariants)}
+        className="pointer-events-none fixed top-1/2 left-1/2 z-50 h-[150vmax] w-[150vmax] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_99999px_#0E0E0E] will-change-[width,height]"
+        id="main"
+        {...anim(circleVariants)}
       />
+
       {children}
     </>
   );

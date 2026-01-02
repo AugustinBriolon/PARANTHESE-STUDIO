@@ -4,12 +4,13 @@ import SEO from '@/components/ui/SEO';
 import { useEnvironment } from '@/hooks/useEnvironment';
 import { usePerformance } from '@/providers/performance.provider';
 import { gsap } from 'gsap';
+import DrawSVGPlugin from 'gsap/dist/DrawSVGPlugin';
 import MorphSVGPlugin from 'gsap/dist/MorphSVGPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { ReactNode, useEffect } from 'react';
 
-gsap.registerPlugin(ScrollTrigger, SplitText, MorphSVGPlugin);
+gsap.registerPlugin(ScrollTrigger, SplitText, MorphSVGPlugin, DrawSVGPlugin);
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { isProd } = useEnvironment();

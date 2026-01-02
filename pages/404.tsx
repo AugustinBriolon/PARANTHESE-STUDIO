@@ -89,8 +89,8 @@ export default function Error() {
           return (
             <div
               key={index}
-              className={`text-black transition-all will-change-transform select-none ${
-                hoveredCells.has(index) ? 'scale-95 text-white' : ''
+              className={`text-black transition-all select-none ${
+                hoveredCells.has(index) ? 'scale-95 opacity-0' : ''
               }`}
               onMouseEnter={() => handleCellHover(index)}
             >

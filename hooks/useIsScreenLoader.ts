@@ -1,8 +1,16 @@
 import { usePathname } from 'next/navigation';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
+
+let isFirstLoad = true;
 
 export const useIsScreenLoader = () => {
   const pathname = usePathname();
 
-  return useMemo(() => pathname === '/', []);
+  useEffect(() => {
+    if (pathname !== '/') {
+      isFirstLoad = false;
+    }
+  }, [pathname]);
+
+  return isFirstLoad && pathname === '/';
 };
