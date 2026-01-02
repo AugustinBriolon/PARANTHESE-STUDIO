@@ -3,7 +3,7 @@
 Ce dépôt contient le code source du site de Paranthese Studio, studio créatif basé à Paris.
 
 - **Site officiel** : [www.paranthese.studio](https://www.paranthese.studio)
-- **Pré-production** : [https://paranthese-dev.vercel.app/](https://www.devv.paranthese.studio)
+- **Pré-production** : [https://paranthese-dev.vercel.app/](https://www.dev.paranthese.studio)
 
 ---
 
