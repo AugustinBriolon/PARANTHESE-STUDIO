@@ -1,6 +1,6 @@
 import Header from '@/components/layout/header';
 import AnimatedTitle from '@/components/layout/animated-title';
-import Contact from '@/components/shared/contact';
+import Contact from '@/components/ui/contact';
 import LastProject from '@/components/layout/last-project';
 
 export default function Page() {

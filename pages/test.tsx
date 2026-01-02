@@ -1,3 +1,9 @@
+import Button from '@/components/ui/button';
+
 export default function Page() {
-  return <div>test</div>;
+  return (
+    <div>
+      <Button href="/">Home</Button>
+    </div>
+  );
 }

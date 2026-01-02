@@ -40,7 +40,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed top-1/2 left-1/2 z-50 h-[150vmax] w-[150vmax] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_99999px_#0E0E0E] will-change-[width,height]"
+        className="pointer-events-none fixed top-1/2 left-1/2 z-60 h-[150vmax] w-[150vmax] -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_99999px_#0E0E0E] will-change-[width,height]"
         id="main"
         {...anim(circleVariants)}
       />
