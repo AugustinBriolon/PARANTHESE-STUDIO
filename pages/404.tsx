@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button';
+// import Button from '@/components/ui/button';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const CELL_WIDTH = 120;
@@ -77,9 +77,9 @@ export default function Error() {
                   gridRow: `${buttonPosition.rowStart + 1} / span ${BUTTON_SPAN}`,
                 }}
               >
-                <Button className="w-full" href="/">
+                {/* <Button className="w-full" href="/">
                   Home
-                </Button>
+                </Button> */}
               </div>
             );
           }
