@@ -63,7 +63,7 @@ export default function Contact() {
         CONTACT
       </Button>
       <div ref={linkedinRef} className="group relative origin-bottom-left">
-        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 group-hover:scale-x-100"></div>
+        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-0 rounded-full bg-black transition-all duration-300 group-hover:scale-100"></div>
         <a
           className="text-lg"
           href="https://www.linkedin.com/company/paranthese-studio/"
@@ -74,7 +74,7 @@ export default function Contact() {
         </a>
       </div>
       <div ref={instagramRef} className="group relative origin-bottom-left">
-        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 group-hover:scale-x-100"></div>
+        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-0 rounded-full bg-black transition-all duration-300 group-hover:scale-100"></div>
         <a
           className="text-lg"
           href="https://www.instagram.com/paranthese.studio/"
