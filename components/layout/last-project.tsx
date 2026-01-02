@@ -6,7 +6,7 @@ import SplitText from 'gsap/SplitText';
 import { useEffect, useRef, useState } from 'react';
 
 import { TIME_TO_LOAD } from '@/constants/time-to-load';
-import Button from '../ui/button';
+import Button from '@/components/ui/button';
 
 export default function LastProject() {
   const isScreenLoader = useIsScreenLoader();
