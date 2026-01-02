@@ -54,19 +54,13 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:items-center md:gap-5">
-      {/* <Button
+      <Button
         ref={contactButtonRef}
         className="origin-bottom-left"
         href="mailto:hello@paranthese.studio"
         external
       >
         CONTACT
-      </Button> */}
-      <Button ref={contactButtonRef} className="origin-bottom-left" href="/efefef">
-        EFEFEF
-      </Button>
-      <Button ref={contactButtonRef} className="origin-bottom-left" href="/test">
-        TEST
       </Button>
       <div ref={linkedinRef} className="group relative origin-bottom-left">
         <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 group-hover:scale-x-100"></div>
