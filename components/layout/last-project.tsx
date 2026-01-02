@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
 import { useEffect, useRef, useState } from 'react';
-import Button from '../ui/Button';
+import Button from '../ui/button';
 import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
 export default function LastProject() {
