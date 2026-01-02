@@ -55,6 +55,6 @@ const Cursor = () => {
       className="pointer-events-none fixed top-0 left-0 z-9999 h-3 w-3 rounded-full border-2 border-white bg-black will-change-transform"
     />
   );
-}
+};
 
 export default Cursor;

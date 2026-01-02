@@ -6,7 +6,7 @@ import SplitText from 'gsap/SplitText';
 import { useEffect, useRef, useState } from 'react';
 
 import { TIME_TO_LOAD } from '@/constants/time-to-load';
-// import Button from '@/components/ui/button';
+import Button from '@/components/ui/button';
 
 export default function LastProject() {
   const isScreenLoader = useIsScreenLoader();
@@ -176,14 +176,14 @@ export default function LastProject() {
           </p>
         </div>
         <div className="w-auto overflow-hidden">
-          {/* <Button
+          <Button
             ref={projectButtonRef}
             href="https://les-reveries-orangerie.vercel.app/"
             variant="white"
             external
           >
             EXPLORE
-          </Button> */}
+          </Button>
         </div>
       </div>
 
