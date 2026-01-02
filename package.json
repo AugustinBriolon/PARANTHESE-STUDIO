@@ -11,6 +11,7 @@
     "lint": "eslint",
     "format": "eslint --fix \"**/*.{ts,tsx,js,jsx}\"",
     "check": "eslint \"**/*.{ts,tsx,js,jsx}\"",
+    "check:case": "node scripts/check-case-sensitivity.js",
     "prepare": "husky"
   },
   "dependencies": {
