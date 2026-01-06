@@ -50,8 +50,8 @@ const Button = forwardRef<HTMLDivElement, ButtonProps>(
           ref={ref as unknown as React.RefObject<HTMLAnchorElement>}
           className={`group relative inline-block align-middle ${baseClasses} ${variantClasses} ${className}`}
           href={href}
-          // rel={external ? 'noreferrer' : undefined}
-          // target={external ? '_blank' : undefined}
+          rel={external ? 'noreferrer' : undefined}
+          target={external ? '_blank' : undefined}
           onMouseEnter={handleMouseEnter}
         >
           <div

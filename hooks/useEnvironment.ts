@@ -9,8 +9,8 @@ export const useEnvironment = () => {
     const isLocalhost =
       window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
     const isProd =
-      window.location.hostname === 'metabole.studio' ||
-      window.location.hostname === 'www.metabole.studio';
+      window.location.hostname === 'paranthese.studio' ||
+      window.location.hostname === 'www.paranthese.studio';
 
     setIsDev(isLocalhost);
     setIsProd(isProd);
