@@ -6,9 +6,9 @@
     "dev": "next dev",
     "dev:https": "next dev --turbopack --experimental-https",
     "build": "next build",
-    "postbuild": "next-sitemap",
+    "sitemap": "next-sitemap",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint \"**/*.{ts,tsx,js,jsx}\"",
     "format": "eslint --fix \"**/*.{ts,tsx,js,jsx}\"",
     "check": "eslint \"**/*.{ts,tsx,js,jsx}\"",
     "prepare": "husky"

@@ -2,4 +2,3 @@ yarn run format
 yarn run check
 yarn run lint
 yarn run build
-yarn run postbuild

@@ -23,10 +23,16 @@ export default function Error() {
 
   const handleCellHover = useCallback(
     (index: number) => {
-      setHoveredCells((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
-      if (hoveredCells.size === gridConfig.cols * gridConfig.rows) setHoveredCells(new Set());
+      setHoveredCells((prev) => {
+        const newSet = prev.has(index) ? prev : new Set(prev).add(index);
+        const total = gridConfig.cols * gridConfig.rows;
+        if (newSet.size === total) {
+          return new Set();
+        }
+        return newSet;
+      });
     },
-    [hoveredCells, gridConfig],
+    [gridConfig],
   );
 
   const buttonPosition = useMemo(
