@@ -4,9 +4,9 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
 import { useEffect, useRef, useState } from 'react';
-import Button from '../ui/Button';
-import { timeToLoad } from './ScreenLoader';
-gsap.registerPlugin(SplitText);
+
+import { TIME_TO_LOAD } from '@/constants/time-to-load';
+import Button from '@/components/ui/button';
 
 export default function LastProject() {
   const isScreenLoader = useIsScreenLoader();
@@ -23,10 +23,10 @@ export default function LastProject() {
     typeof window !== 'undefined' &&
     ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.maxTouchPoints > 0);
 
-  const tl = useRef<GSAPTimeline | null>(null);
+  const tl = useRef<gsap.core.Timeline | null>(null);
   const mm = gsap.matchMedia();
 
-  const openProjectInfoAnimation = (timeline: GSAPTimeline) => {
+  const openProjectInfoAnimation = (timeline: gsap.core.Timeline) => {
     timeline.to(projectTitleRef.current, {
       y: 0,
       duration: 0.8,
@@ -43,7 +43,7 @@ export default function LastProject() {
     );
   };
 
-  const closeProjectInfoAnimation = (timeline: GSAPTimeline) => {
+  const closeProjectInfoAnimation = (timeline: gsap.core.Timeline) => {
     timeline.to(projectTitleRef.current, {
       y: 50,
       duration: 0.8,
@@ -132,7 +132,7 @@ export default function LastProject() {
       gsap
         .timeline()
         .from(videoContainerRef.current, {
-          delay: isScreenLoader ? timeToLoad + 0.5 : 0.5,
+          delay: isScreenLoader ? TIME_TO_LOAD + 0.5 : 0.5,
           scale: 0,
           duration: 1,
           ease: 'power2.out',
@@ -170,7 +170,7 @@ export default function LastProject() {
         <div className="overflow-hidden">
           <p
             ref={projectTitleRef}
-            className="text-right text-xl font-medium text-white uppercase will-change-transform md:text-4xl"
+            className="text-right text-xl font-medium text-white uppercase md:text-4xl"
           >
             LES RÊVERIES DE L'ORANGERIE
           </p>
@@ -178,9 +178,9 @@ export default function LastProject() {
         <div className="w-auto overflow-hidden">
           <Button
             ref={projectButtonRef}
-            className="will-change-transform"
             href="https://les-reveries-orangerie.vercel.app/"
             variant="white"
+            external
           >
             EXPLORE
           </Button>
@@ -188,7 +188,7 @@ export default function LastProject() {
       </div>
 
       <div className="overflow-hidden">
-        <h3 ref={textRef} className="text-sm font-medium will-change-transform">
+        <h3 ref={textRef} className="text-sm font-medium">
           LAST REALISATION
         </h3>
       </div>

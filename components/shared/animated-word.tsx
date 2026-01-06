@@ -1,12 +1,11 @@
 import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
 import React, { useRef } from 'react';
-import { timeToLoad } from '../layout/ScreenLoader';
+
 import gsap from 'gsap';
 import SplitText from 'gsap/dist/SplitText';
 import { useFontReady } from '@/hooks/useFontReady';
-
-gsap.registerPlugin(SplitText);
+import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
 export default function AnimatedWord({
   children,
@@ -29,7 +28,7 @@ export default function AnimatedWord({
     });
 
     gsap.from(split.words, {
-      delay: isScreenLoader ? timeToLoad + delay : delay,
+      delay: isScreenLoader ? TIME_TO_LOAD + delay : delay,
       yPercent: 100,
       scaleY: 0.8,
       stagger: 0.03,
@@ -40,7 +39,7 @@ export default function AnimatedWord({
 
   return (
     <div className="overflow-hidden">
-      <h2 ref={spanRef} className="inline-block will-change-transform">
+      <h2 ref={spanRef} className="inline-block">
         {children}
       </h2>
     </div>

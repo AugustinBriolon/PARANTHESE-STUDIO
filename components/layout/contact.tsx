@@ -2,9 +2,10 @@ import { useIsScreenLoader } from '@/hooks/useIsScreenLoader';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useRef } from 'react';
-import Button from '../ui/Button';
-import Time from '../ui/Time';
-import { timeToLoad } from './ScreenLoader';
+
+import Button from '@/components/ui/button';
+import Time from '@/components/shared/time';
+import { TIME_TO_LOAD } from '@/constants/time-to-load';
 
 export default function Contact() {
   const isScreenLoader = useIsScreenLoader();
@@ -17,7 +18,7 @@ export default function Contact() {
     gsap
       .timeline()
       .from(contactButtonRef.current, {
-        delay: isScreenLoader ? timeToLoad + 0.5 : 0.5,
+        delay: isScreenLoader ? TIME_TO_LOAD + 0.5 : 0.5,
         scale: 0,
         duration: 0.6,
         ease: 'power2.inOut',
@@ -55,24 +56,31 @@ export default function Contact() {
     <div className="flex flex-col-reverse items-start gap-2 md:flex-row md:items-center md:gap-5">
       <Button
         ref={contactButtonRef}
-        className="origin-bottom-left will-change-transform"
+        className="origin-bottom-left"
         href="mailto:hello@paranthese.studio"
+        external
       >
         CONTACT
       </Button>
-      <div ref={linkedinRef} className="group relative origin-bottom-left will-change-transform">
-        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 will-change-transform group-hover:scale-x-100"></div>
+      <div ref={linkedinRef} className="group relative origin-bottom-left">
+        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-0 rounded-full bg-black transition-all duration-300 group-hover:scale-100"></div>
         <a
           className="text-lg"
           href="https://www.linkedin.com/company/paranthese-studio/"
+          rel="noreferrer"
           target="_blank"
         >
           LINKEDIN
         </a>
       </div>
-      <div ref={instagramRef} className="group relative origin-bottom-left will-change-transform">
-        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 rounded-full bg-black transition-all duration-300 will-change-transform group-hover:scale-x-100"></div>
-        <a className="text-lg" href="https://www.instagram.com/paranthese.studio/" target="_blank">
+      <div ref={instagramRef} className="group relative origin-bottom-left">
+        <div className="absolute bottom-0 left-0 h-px w-full origin-left scale-0 rounded-full bg-black transition-all duration-300 group-hover:scale-100"></div>
+        <a
+          className="text-lg"
+          href="https://www.instagram.com/paranthese.studio/"
+          rel="noreferrer"
+          target="_blank"
+        >
           INSTAGRAM
         </a>
       </div>
